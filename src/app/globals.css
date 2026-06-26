@@ -6,7 +6,6 @@
   --color-mid: #334155;
   --color-coral: #FF966F;
   --color-gold: #FFD694;
-  --font-inter: var(--font-inter);
 }
 
 :root {
@@ -25,8 +24,8 @@ html {
 body {
   background-color: var(--color-bg);
   color: var(--color-white);
-  font-family: var(--font-inter), 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -36,20 +35,19 @@ body {
 .section-label {
   color: var(--color-coral);
   font-weight: 700;
-  font-size: 0.7rem;
-  letter-spacing: 0.09em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-/* Nav link with coral underline slide-in */
+/* Nav link */
 .nav-link {
   position: relative;
   color: var(--color-white);
-  font-weight: 700;
-  letter-spacing: 0.07em;
+  font-weight: 400;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  font-size: 0.78rem;
-  text-transform: uppercase;
+  font-size: 0.9rem;
   transition: color 0.2s ease;
 }
 .nav-link::after {
@@ -70,13 +68,32 @@ body {
   color: var(--color-coral);
 }
 
-/* Pill buttons */
+/* Gold filled pill — primary CTA */
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, var(--color-gold), var(--color-coral));
+  color: #1a1200;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  text-decoration: none;
+}
+.btn-gold:hover {
+  transform: scale(1.03);
+  filter: brightness(1.05);
+}
+
+/* Keep btn-coral as alias */
 .btn-coral {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-coral);
-  color: var(--color-surface);
+  background: linear-gradient(90deg, var(--color-gold), var(--color-coral));
+  color: #1a1200;
   font-weight: 700;
   border-radius: 9999px;
   border: none;
@@ -86,41 +103,41 @@ body {
 }
 .btn-coral:hover {
   transform: scale(1.03);
-  filter: brightness(1.08);
+  filter: brightness(1.05);
 }
 
+/* White outline pill */
 .btn-outline-light {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   color: var(--color-white);
-  font-weight: 700;
+  font-weight: 500;
   border-radius: 9999px;
-  border: 1.5px solid rgba(255,255,255,0.4);
+  border: 1.5px solid rgba(255,255,255,0.5);
   cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: border-color 0.2s ease;
   text-decoration: none;
 }
 .btn-outline-light:hover {
-  transform: scale(1.03);
   border-color: var(--color-white);
 }
 
+/* Coral outline pill — used in navbar */
 .btn-outline-coral {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
   color: var(--color-coral);
-  font-weight: 700;
+  font-weight: 500;
   border-radius: 9999px;
   border: 1.5px solid var(--color-coral);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease;
+  transition: background-color 0.2s ease;
   text-decoration: none;
 }
 .btn-outline-coral:hover {
-  transform: scale(1.03);
-  background-color: rgba(255, 150, 111, 0.15);
+  background-color: rgba(255, 150, 111, 0.12);
 }

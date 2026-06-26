@@ -3,7 +3,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import LogoMark from "./LogoMark";
+import { ease } from "@/lib/motion";
 
 const navLinks = [
   { href: "/projects", label: "Projects" },
@@ -17,7 +19,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -30,11 +32,9 @@ export default function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled
-          ? "rgba(0, 22, 42, 0.85)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+        background: scrolled ? "rgba(0,22,42,0.88)" : "rgba(0,22,42,0.5)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
         borderBottom: scrolled ? "1px solid rgba(51,65,85,0.4)" : "none",
       }}
     >
@@ -42,6 +42,9 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0">
           <LogoMark size={30} />
+          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "0.01em" }}>
+            studiosibley
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -61,10 +64,10 @@ export default function Navbar() {
         <div className="hidden md:flex items-center">
           <Link
             href="/connect"
-            className="btn-outline-coral px-5 py-2 text-sm"
-            style={{ letterSpacing: "0.07em", fontSize: "0.78rem" }}
+            className="btn-outline-coral"
+            style={{ padding: "0.45rem 1.1rem", fontSize: "0.88rem" }}
           >
-            LET'S CREATE
+            Let&apos;s Create
           </Link>
         </div>
 
@@ -75,21 +78,18 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <span
-            className="block w-6 h-0.5 transition-all duration-300"
+            className="block w-6 h-px transition-all duration-300"
             style={{
               background: "var(--color-white)",
               transform: menuOpen ? "rotate(45deg) translate(3px, 7px)" : "none",
             }}
           />
           <span
-            className="block w-6 h-0.5 transition-all duration-300"
-            style={{
-              background: "var(--color-white)",
-              opacity: menuOpen ? 0 : 1,
-            }}
+            className="block w-6 h-px transition-all duration-300"
+            style={{ background: "var(--color-white)", opacity: menuOpen ? 0 : 1 }}
           />
           <span
-            className="block w-6 h-0.5 transition-all duration-300"
+            className="block w-6 h-px transition-all duration-300"
             style={{
               background: "var(--color-white)",
               transform: menuOpen ? "rotate(-45deg) translate(3px, -7px)" : "none",
@@ -98,33 +98,49 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div
-          className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-5"
-          style={{
-            background: "rgba(0,22,42,0.97)",
-            backdropFilter: "blur(12px)",
-          }}
-        >
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`nav-link text-base${pathname.startsWith(href) ? " active" : ""}`}
-            >
-              {label}
-            </Link>
-          ))}
-          <Link
-            href="/connect"
-            className="btn-outline-coral px-5 py-2.5 text-sm w-fit"
-            style={{ letterSpacing: "0.07em" }}
+      {/* Mobile menu — animated */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.22, ease }}
+            className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-5"
+            style={{ background: "rgba(0,22,42,0.97)", backdropFilter: "blur(12px)" }}
           >
-            LET'S CREATE
-          </Link>
-        </div>
-      )}
+            {navLinks.map(({ href, label }, i) => (
+              <motion.div
+                key={href}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.2, delay: i * 0.06, ease }}
+              >
+                <Link
+                  href={href}
+                  className={`nav-link text-base${pathname.startsWith(href) ? " active" : ""}`}
+                >
+                  {label}
+                </Link>
+              </motion.div>
+            ))}
+            <motion.div
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.2, delay: navLinks.length * 0.06, ease }}
+            >
+              <Link
+                href="/connect"
+                className="btn-outline-coral w-fit"
+                style={{ padding: "0.5rem 1.2rem", fontSize: "0.88rem" }}
+              >
+                Let&apos;s Create
+              </Link>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
