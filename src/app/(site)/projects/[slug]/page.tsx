@@ -1,10 +1,12 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/client";
 import { projectBySlugQuery } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
 import ProjectDetailClient from "./ProjectDetailClient";
 
-type SanityImage = { asset: { _ref: string } };
+type Dims = { width: number; height: number };
+type SanityImage = { asset: { _ref: string }; dimensions?: Dims };
 
 type RawProject = {
   _id: string;
@@ -34,27 +36,36 @@ export default async function ProjectDetailPage({
 
   if (!raw) notFound();
 
-  const thumbnailUrl = raw.thumbnail
-    ? urlFor(raw.thumbnail).width(1800).url()
-    : undefined;
+  const FALLBACK_W = 1800;
+  const FALLBACK_H = 1200;
 
-  const galleryUrls = (raw.images ?? []).map((img) =>
-    urlFor(img).width(1800).url()
-  );
+  const thumbnailUrl = raw.thumbnail ? urlFor(raw.thumbnail).url() : undefined;
+  const thumbnailWidth = raw.thumbnail?.dimensions?.width ?? FALLBACK_W;
+  const thumbnailHeight = raw.thumbnail?.dimensions?.height ?? FALLBACK_H;
+
+  const galleryImages = (raw.images ?? []).map((img) => ({
+    url: urlFor(img).url(),
+    width: img.dimensions?.width ?? FALLBACK_W,
+    height: img.dimensions?.height ?? FALLBACK_H,
+  }));
 
   return (
-    <ProjectDetailClient
-      project={{
-        _id: raw._id,
-        title: raw.title,
-        slug: raw.slug,
-        medium: raw.medium,
-        category: raw.category,
-        description: raw.description,
-        videoUrl: raw.videoUrl,
-        thumbnailUrl,
-        galleryUrls,
-      }}
-    />
+    <Suspense fallback={null}>
+      <ProjectDetailClient
+        project={{
+          _id: raw._id,
+          title: raw.title,
+          slug: raw.slug,
+          medium: raw.medium,
+          category: raw.category,
+          description: raw.description,
+          videoUrl: raw.videoUrl,
+          thumbnailUrl,
+          thumbnailWidth,
+          thumbnailHeight,
+          galleryImages,
+        }}
+      />
+    </Suspense>
   );
 }

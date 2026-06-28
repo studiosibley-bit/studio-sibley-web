@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { client } from "@/sanity/client";
 import { projectsQuery, siteSettingsQuery } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
@@ -18,5 +19,9 @@ export default async function ProjectsPage() {
     // Falls back to placeholders when Sanity isn't configured yet
   }
 
-  return <ProjectsClient projects={projects} bgUrl={bgUrl} />;
+  return (
+    <Suspense fallback={null}>
+      <ProjectsClient projects={projects} bgUrl={bgUrl} />
+    </Suspense>
+  );
 }

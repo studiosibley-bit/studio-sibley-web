@@ -6,12 +6,12 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ease } from "@/lib/motion";
 
 const para1 =
-  "I believe too many businesses with real value get overlooked because their visuals don't reflect what they actually offer. Cheap design, AI-generated imagery, and rushed video tells the world not to take you seriously — even when your product or service is exceptional.";
+  "A lot of genuinely great work gets overlooked because the visuals aren't keeping up. Bad design, rushed photography, and generic video can tell people not to take you seriously before you've even had a chance to speak for yourself.";
 const callout = "That's what Studio Sibley was built to fix.";
 const para2 =
-  "I started this studio because a strong brand image shouldn't be out of reach. In a world more visual and digital than ever, how your business looks online isn't optional. Every company, regardless of size, deserves creative work that commands the same attention as the biggest names in its industry.";
+  "I started this studio because good creative work should be available to everyone, not just big brands with big budgets. Whether you're a business, a creator, an artist, or just someone with something worth capturing, how you present yourself visually has never mattered more.";
 const para3 =
-  "My job is to make sure yours gets it. Whether you need a logo that's uniquely yours, photography that represents your product, or video that moves people — I approach every project with the same commitment to quality. Because your story is worth telling well.";
+  "My job is to help you show up in a way that feels true to who you are. A logo that actually fits, photos that represent what you do, video that connects. I put the same care into every project regardless of scope, because whatever your story is, it deserves to be told well.";
 
 export default function AboutClient({
   aboutPhotoUrl,
@@ -116,7 +116,7 @@ export default function AboutClient({
             }}
           >
             {aboutPhotoUrl ? (
-              <Image src={aboutPhotoUrl} alt="Isaiah Sibley" fill style={{ objectFit: "cover" }} sizes="400px" />
+              <Image src={aboutPhotoUrl} alt="Isaiah Sibley" fill quality={90} style={{ objectFit: "cover" }} sizes="500px" />
             ) : (
               "My Photo"
             )}

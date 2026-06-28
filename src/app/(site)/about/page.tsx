@@ -10,7 +10,7 @@ export default async function AboutPage() {
   try {
     const settings = await client.fetch(siteSettingsQuery);
     if (settings?.aboutPhoto) {
-      aboutPhotoUrl = urlFor(settings.aboutPhoto).width(600).height(750).fit("crop").url();
+      aboutPhotoUrl = urlFor(settings.aboutPhoto).width(1000).height(1250).fit("crop").url();
     }
     if (settings?.aboutBg) {
       bgUrl = urlFor(settings.aboutBg).width(1920).url();

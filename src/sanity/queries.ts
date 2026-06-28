@@ -19,10 +19,16 @@ export const projectBySlugQuery = groq`
     "slug": slug.current,
     medium,
     category,
-    thumbnail,
+    thumbnail {
+      ...,
+      "dimensions": asset->metadata.dimensions,
+    },
     description,
     videoUrl,
-    images,
+    images[] {
+      ...,
+      "dimensions": asset->metadata.dimensions,
+    },
   }
 `
 
@@ -32,6 +38,7 @@ export const testimonialsQuery = groq`
     quote,
     name,
     role,
+    rating,
   }
 `
 

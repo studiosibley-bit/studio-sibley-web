@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   motion,
   AnimatePresence,
@@ -26,9 +27,9 @@ const categories: Record<Medium, string[]> = {
 };
 
 const defaultActive: Record<Medium, string> = {
-  Photo: "People",
-  Video: "Stories",
-  Design: "Identity",
+  Photo: "All",
+  Video: "All",
+  Design: "All",
 };
 
 const TWO_PI_OVER_3 = (2 * Math.PI) / 3;
@@ -191,9 +192,9 @@ function PlaceholderTile() {
   );
 }
 
-function ProjectTile({ project, reduced }: { project: Project; reduced: boolean }) {
+function ProjectTile({ project, href, reduced }: { project: Project; href: string; reduced: boolean }) {
   const imgUrl = project.thumbnail
-    ? urlFor(project.thumbnail).width(600).height(400).fit("crop").url()
+    ? urlFor(project.thumbnail).width(1200).height(800).fit("crop").url()
     : null;
 
   return (
@@ -204,7 +205,7 @@ function ProjectTile({ project, reduced }: { project: Project; reduced: boolean 
       style={{ borderRadius: "14px" }}
     >
       <Link
-        href={`/projects/${project.slug}`}
+        href={href}
         className="group"
         style={{
           borderRadius: "14px",
@@ -216,7 +217,7 @@ function ProjectTile({ project, reduced }: { project: Project; reduced: boolean 
         }}
       >
         {imgUrl ? (
-          <Image src={imgUrl} alt={project.title} fill style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 33vw" />
+          <Image src={imgUrl} alt={project.title} fill quality={90} style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 33vw" />
         ) : (
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <p style={{ color: "rgba(0,0,0,0.2)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -238,8 +239,14 @@ function ProjectTile({ project, reduced }: { project: Project; reduced: boolean 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function ProjectsClient({ projects, bgUrl }: { projects: Project[]; bgUrl?: string }) {
-  const [activeMedium, setActiveMedium] = useState<Medium>("Photo");
-  const [activeCategory, setActiveCategory] = useState<string>(defaultActive["Photo"]);
+  const searchParams = useSearchParams();
+  const paramMedium = searchParams.get("medium") as Medium | null;
+  const paramCat = searchParams.get("cat");
+  const initialMedium: Medium = paramMedium && MEDIUMS.includes(paramMedium) ? paramMedium : "Photo";
+  const initialCategory = paramCat && (paramCat === "All" || categories[initialMedium].includes(paramCat)) ? paramCat : defaultActive[initialMedium];
+
+  const [activeMedium, setActiveMedium] = useState<Medium>(initialMedium);
+  const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
   const reduced = useReducedMotion();
 
   function switchMedium(m: Medium) {
@@ -248,7 +255,9 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
   }
 
   const filteredProjects = projects.filter((p) => p.medium === activeMedium);
-  const displayProjects = filteredProjects.filter((p) => p.category === activeCategory);
+  const displayProjects = activeCategory === "All"
+    ? filteredProjects
+    : filteredProjects.filter((p) => p.category === activeCategory);
 
   const PLACEHOLDER_COUNT = 8;
   const hasProjects = projects.some((p) => p.medium === activeMedium);
@@ -301,7 +310,12 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
                 style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}
               >
                 {displayProjects.map((p) => (
-                  <ProjectTile key={p._id} project={p} reduced={!!reduced} />
+                  <ProjectTile
+                    key={p._id}
+                    project={p}
+                    href={`/projects/${p.slug}?medium=${activeMedium}&cat=${activeCategory}`}
+                    reduced={!!reduced}
+                  />
                 ))}
                 {Array.from({ length: placeholderCount }).map((_, i) => (
                   <PlaceholderTile key={`ph-${i}`} />
@@ -322,7 +336,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
 
               {/* Category buttons */}
               <div style={{ background: "var(--color-mid)", borderRadius: "14px", padding: "0.65rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                {categories[activeMedium].map((cat) => {
+                {["All", ...categories[activeMedium]].map((cat) => {
                   const isActive = activeCategory === cat;
                   return (
                     <motion.button

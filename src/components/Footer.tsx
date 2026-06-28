@@ -86,7 +86,7 @@ export default function Footer() {
         </motion.div>
 
         <motion.p {...reveal(0.22)} style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.72rem" }}>
-          © 2025 Studio Sibley. All rights reserved.
+          © 2026 Studio Sibley. All rights reserved.
         </motion.p>
       </div>
     </footer>

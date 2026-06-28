@@ -9,6 +9,7 @@ type Testimonial = {
   quote: string;
   name: string;
   role: string;
+  rating?: number;
 };
 
 export default function HeroClient({
@@ -74,7 +75,7 @@ export default function HeroClient({
           initial="hidden"
           animate="visible"
         >
-          Photo, video, and design for those who want more than the bare minimum.
+          Photo, video, and design for anyone with a story worth telling.
         </motion.p>
 
         <motion.div
@@ -115,7 +116,7 @@ export default function HeroClient({
               }}
             >
               <div style={{ display: "flex", gap: "3px", marginBottom: "1rem" }}>
-                {Array.from({ length: 5 }).map((_, s) => (
+                {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
                   <span key={s} style={{ color: "var(--color-gold)", fontSize: "0.85rem" }}>★</span>
                 ))}
               </div>
