@@ -167,7 +167,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
         backgroundPosition: "center",
       }}
     >
-      <div style={{ padding: "3.5rem 2.5rem 6rem", position: "relative", zIndex: 10 }}>
+      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 6rem", position: "relative", zIndex: 10 }}>
 
         {/* Featured section */}
         <motion.p className="section-label" style={{ marginBottom: "1.5rem" }} {...fu(0)}>
@@ -176,6 +176,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
 
         {featured.length > 0 && (
           <motion.div
+            className="featured-grid"
             variants={staggerContainer}
             initial="hidden"
             animate="visible"
@@ -203,6 +204,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
             </motion.div>
 
             <motion.div
+              className="other-grid"
               variants={staggerContainer}
               initial="hidden"
               animate="visible"

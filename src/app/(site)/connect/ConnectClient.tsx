@@ -27,7 +27,7 @@ export default function ConnectClient({ bgUrl }: { bgUrl?: string }) {
         backgroundPosition: "center",
       }}
     >
-      <div style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
+      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
         <motion.div {...fu(0)}>
           <p className="section-label" style={{ marginBottom: "1.25rem" }}>Connect</p>
         </motion.div>

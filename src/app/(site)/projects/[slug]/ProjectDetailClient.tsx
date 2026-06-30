@@ -181,7 +181,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
   return (
     <>
       <section style={{ paddingTop: "68px", minHeight: "100vh", background: "var(--color-bg)" }}>
-        <div style={{ padding: "2rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
+        <div className="mobile-content" style={{ padding: "2rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
 
           <motion.div {...fu(0)}>
             <Link
@@ -286,6 +286,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
               variants={reduced ? undefined : staggerContainer}
               initial="hidden"
               animate="visible"
+              className="gallery-grid"
               style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem" }}
             >
               {project.galleryImages.map((img, i) => (

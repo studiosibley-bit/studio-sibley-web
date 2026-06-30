@@ -42,12 +42,12 @@ export default function AboutClient({
         backgroundPosition: "center",
       }}
     >
-      <div style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
+      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
         <motion.div {...fu(0)}>
           <p className="section-label" style={{ marginBottom: "1.25rem" }}>About</p>
         </motion.div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "4rem", alignItems: "start" }}>
+        <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "4rem", alignItems: "start" }}>
           {/* Left — text */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <motion.div {...fu(0.08)}>

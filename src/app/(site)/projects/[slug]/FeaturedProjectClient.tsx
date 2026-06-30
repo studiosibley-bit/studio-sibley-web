@@ -131,6 +131,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
 
         {/* Banner — blurred thumbnail (or hero video) behind title text */}
         <div
+          className="featured-banner"
           style={{
             position: "relative",
             display: "flex",
@@ -198,7 +199,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               {project.title}
             </motion.h1>
 
-            <div style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
+            <div className="featured-meta" style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
               {roles.length > 0 && (
                 <motion.div {...fu(0.2)}>
                   <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "0.35rem" }}>

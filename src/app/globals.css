@@ -149,3 +149,68 @@ body {
 .btn-outline-coral:hover {
   background-color: rgba(255, 150, 111, 0.12);
 }
+
+/* ─── Mobile responsive overrides ──────────────────────────────────────────── */
+/* All desktop layouts use inline styles; !important is required here.          */
+/* Nothing below this comment affects viewports wider than 768px.               */
+
+@media (max-width: 768px) {
+  /* Reduce side padding on inner page content wrappers */
+  .mobile-content {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  /* Hero — testimonial cards: 3-col → 1-col */
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Projects — featured mosaic: 6-col → single column, all tiles full-width */
+  .featured-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .featured-grid > * {
+    grid-column: 1 / -1 !important;
+    aspect-ratio: 3/2 !important;
+  }
+
+  /* Projects — "See Other Work": 4-col → 2-col */
+  .other-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* About — text + photo: 2-col → stacked single column */
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Services — offering cards: 3-col → stacked, fix dividers */
+  .services-cards {
+    grid-template-columns: 1fr !important;
+  }
+  .services-cards > * {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  .services-cards > *:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Project detail — gallery thumbnails: 3-col → 2-col */
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* Featured project detail — banner side padding */
+  .featured-banner {
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+  }
+
+  /* Featured project detail — role / brief row: reduce gap so items wrap cleanly */
+  .featured-meta {
+    gap: 1.5rem !important;
+  }
+}

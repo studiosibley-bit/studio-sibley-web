@@ -94,6 +94,7 @@ export default function HeroClient({
         </motion.div>
 
         <motion.div
+          className="testimonials-grid"
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.25rem" }}
           custom={0.35}
           variants={variants}

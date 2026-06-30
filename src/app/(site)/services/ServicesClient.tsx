@@ -47,7 +47,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         backgroundPosition: "center",
       }}
     >
-      <div style={{ padding: "3.5rem 2.5rem 0", position: "relative", zIndex: 1 }}>
+      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 0", position: "relative", zIndex: 1 }}>
         <motion.div {...fu(0)}>
           <p className="section-label" style={{ marginBottom: "1.25rem" }}>Services</p>
         </motion.div>
@@ -84,6 +84,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
 
         {/* Service cards — stagger in */}
         <motion.div
+          className="services-cards"
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
@@ -158,6 +159,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
         transition={{ duration: 0.55, ease }}
+        className="mobile-content"
         style={{ padding: "0 2.5rem 4rem", position: "relative", zIndex: 1 }}
       >
         <h2
