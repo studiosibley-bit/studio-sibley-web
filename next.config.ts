@@ -11,7 +11,8 @@ const nextConfig: NextConfig = {
       // on `armScrollRestore` there), so this isn't load-bearing for that
       // anymore — kept because edits made in Sanity Studio should show up
       // immediately on navigation instead of waiting out the cache window.
-      static: 0,
+      // 30 is the minimum value Next.js accepts here.
+      static: 30,
     },
   },
   images: {

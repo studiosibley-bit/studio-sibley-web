@@ -1,5 +1,38 @@
 import { groq } from 'next-sanity'
 
+type SanityImageRef = { asset: { _ref: string } }
+
+export type SiteSettings = {
+  aboutPhoto?: SanityImageRef
+  heroBg?: SanityImageRef
+  projectsBg?: SanityImageRef
+  servicesBg?: SanityImageRef
+  aboutBg?: SanityImageRef
+  connectBg?: SanityImageRef
+}
+
+export type Testimonial = {
+  _id: string
+  quote: string
+  name: string
+  role: string
+  rating?: number
+}
+
+export type ListProject = {
+  _id: string
+  title: string
+  slug: string
+  medium: string
+  category: string
+  featured?: boolean
+  tileSize?: 'full' | 'half' | 'third'
+  role?: string[]
+  year?: number
+  thumbnail?: SanityImageRef & { dimensions?: { width: number; height: number } }
+  description?: string
+}
+
 export const projectsQuery = groq`
   *[_type == "project"] | order(order asc, _createdAt desc) {
     _id,

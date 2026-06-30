@@ -1,4 +1,4 @@
-import { createClient, type SanityClient } from '@sanity/client'
+import { createClient, type SanityClient, type QueryParams } from '@sanity/client'
 import { apiVersion, dataset, projectId } from './env'
 
 const isConfigured = Boolean(projectId) && /^[a-z0-9-]+$/.test(projectId)
@@ -14,9 +14,9 @@ function getSanityClient(): SanityClient | null {
 }
 
 export const client = {
-  fetch: async <T>(query: string, params?: Record<string, unknown>): Promise<T> => {
+  fetch: async <T>(query: string, params?: QueryParams): Promise<T> => {
     const c = getSanityClient()
     if (!c) throw new Error('Sanity not configured')
-    return c.fetch<T>(query, params)
+    return c.fetch<T>(query, params ?? {})
   },
 }

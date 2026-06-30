@@ -1,5 +1,5 @@
 import { client } from "@/sanity/client";
-import { siteSettingsQuery } from "@/sanity/queries";
+import { siteSettingsQuery, type SiteSettings } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
 import AboutClient from "./AboutClient";
 
@@ -8,7 +8,7 @@ export default async function AboutPage() {
   let bgUrl: string | undefined;
 
   try {
-    const settings = await client.fetch(siteSettingsQuery);
+    const settings = await client.fetch<SiteSettings>(siteSettingsQuery);
     if (settings?.aboutPhoto) {
       aboutPhotoUrl = urlFor(settings.aboutPhoto).width(1000).height(1250).fit("crop").url();
     }

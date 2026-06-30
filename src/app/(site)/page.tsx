@@ -1,5 +1,5 @@
 import { client } from "@/sanity/client";
-import { testimonialsQuery, siteSettingsQuery } from "@/sanity/queries";
+import { testimonialsQuery, siteSettingsQuery, type Testimonial, type SiteSettings } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
 import HeroClient from "./HeroClient";
 
@@ -30,8 +30,8 @@ export default async function Home() {
 
   try {
     const [fetched, settings] = await Promise.all([
-      client.fetch(testimonialsQuery),
-      client.fetch(siteSettingsQuery),
+      client.fetch<Testimonial[]>(testimonialsQuery),
+      client.fetch<SiteSettings>(siteSettingsQuery),
     ]);
     if (fetched && fetched.length > 0) testimonials = fetched;
     if (settings?.heroBg) bgUrl = urlFor(settings.heroBg).width(1920).url();
