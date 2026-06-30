@@ -7,8 +7,16 @@ export const projectsQuery = groq`
     "slug": slug.current,
     medium,
     category,
-    thumbnail,
+    featured,
+    tileSize,
+    role,
+    year,
+    thumbnail {
+      ...,
+      "dimensions": asset->metadata.dimensions,
+    },
     description,
+    videoUrl,
   }
 `
 
@@ -19,13 +27,29 @@ export const projectBySlugQuery = groq`
     "slug": slug.current,
     medium,
     category,
+    featured,
+    brief,
+    role,
+    year,
+    heroVideo {
+      asset-> { url }
+    },
     thumbnail {
       ...,
       "dimensions": asset->metadata.dimensions,
     },
     description,
     videoUrl,
+    fullImages[] {
+      ...,
+      "dimensions": asset->metadata.dimensions,
+    },
     images[] {
+      ...,
+      "dimensions": asset->metadata.dimensions,
+    },
+    isBooklet,
+    bookletSpreads[] {
       ...,
       "dimensions": asset->metadata.dimensions,
     },

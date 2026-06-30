@@ -21,6 +21,14 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Used by PageTransition's scroll-restore: hides page content while a saved
+   scroll position is being applied, so the wrong position never paints. A
+   static rule (not a dynamically inserted <style> tag) so there's no timing
+   gap before it's active. See src/components/PageTransition.tsx. */
+html.pt-restoring [data-pt-content] {
+  visibility: hidden;
+}
+
 body {
   background-color: var(--color-bg);
   color: var(--color-white);
