@@ -257,7 +257,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
                   width={img.width}
                   height={img.height}
                   quality={95}
-                  priority={i < 2}
+                  loading="eager"
                   style={{ width: "100%", height: "auto", display: "block" }}
                   sizes="100vw"
                 />

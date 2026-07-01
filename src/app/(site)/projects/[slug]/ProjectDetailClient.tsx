@@ -121,6 +121,7 @@ function GalleryTile({ img, index, onClick, reduced }: {
         alt={`Image ${index + 1}`}
         fill
         quality={90}
+        loading="eager"
         style={{ objectFit: "cover" }}
         sizes="(max-width: 768px) 100vw, 33vw"
       />
@@ -241,7 +242,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 width={thumbImage.width}
                 height={thumbImage.height}
                 quality={90}
-                priority
+                loading="eager"
                 style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
                 sizes="(max-width: 768px) 100vw, 1200px"
               />
@@ -273,6 +274,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     width={img.width}
                     height={img.height}
                     quality={90}
+                    loading="eager"
                     style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
                     sizes="(max-width: 768px) 100vw, 1200px"
                   />
