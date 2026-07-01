@@ -203,6 +203,24 @@ body {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
+  /* About — values row: 3-col → 1-col */
+  .about-values {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+
+  /* Services — service rows: 3-col → stacked */
+  .service-row {
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
+  }
+
+  /* Services — how it works: 4-col → 2-col */
+  .process-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem !important;
+  }
+
   /* Featured project detail — banner side padding */
   .featured-banner {
     padding-left: 1.5rem !important;
