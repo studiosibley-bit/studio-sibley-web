@@ -36,6 +36,7 @@ export default function Navbar() {
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)",
         borderBottom: scrolled ? "1px solid rgba(51,65,85,0.4)" : "none",
+        zIndex: 250,
       }}
     >
       <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
