@@ -221,6 +221,12 @@ body {
     gap: 2rem !important;
   }
 
+  /* Booklet viewer wrapper: reduce side padding on mobile */
+  .booklet-wrapper {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   /* Featured project detail — banner side padding */
   .featured-banner {
     padding-left: 1.5rem !important;

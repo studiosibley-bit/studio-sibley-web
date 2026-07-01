@@ -235,7 +235,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
 
         {/* Booklet page-flip viewer */}
         {hasBooklet && (
-          <div style={{ padding: "3rem 2rem" }}>
+          <div className="booklet-wrapper" style={{ padding: "3rem 2rem" }}>
             <BookletViewer pages={project.bookletPages} title={project.title} />
           </div>
         )}

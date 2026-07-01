@@ -39,7 +39,9 @@ export default function BookletViewer({ pages, title }: { pages: BookletPage[]; 
   // ~2 * minWidth of container width it drops to single-page view (mobile).
   const baseWidth = 440;
   const baseHeight = Math.round(baseWidth / aspect);
-  const minWidth = 280;
+  // minWidth must be small enough that 2×minWidth fits inside a phone screen,
+  // otherwise react-pageflip drops to single-page portrait mode on mobile.
+  const minWidth = 80;
   const minHeight = Math.round(minWidth / aspect);
   const maxWidth = 540;
   const maxHeight = Math.round(maxWidth / aspect);
@@ -57,7 +59,7 @@ export default function BookletViewer({ pages, title }: { pages: BookletPage[]; 
           minHeight={minHeight}
           maxHeight={maxHeight}
           showCover={true}
-          mobileScrollSupport={true}
+          mobileScrollSupport={false}
           drawShadow={true}
           flippingTime={650}
           usePortrait={true}
