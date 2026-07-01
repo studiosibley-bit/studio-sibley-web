@@ -137,7 +137,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "7rem 3rem 4rem",
+            padding: "5rem 3rem 3rem",
             overflow: "hidden",
             background: "#0a0a0a",
           }}
