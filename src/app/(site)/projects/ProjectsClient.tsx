@@ -1,10 +1,9 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { urlFor } from "@/sanity/image";
-import { ease, staggerContainer, staggerItem } from "@/lib/motion";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 
 type TileSize = "full" | "half" | "third";
 
@@ -38,8 +37,7 @@ function FeaturedTile({ project, reduced }: { project: Project; reduced: boolean
     : null;
 
   return (
-    <motion.div
-      variants={staggerItem}
+    <div
       style={{
         gridColumn: `span ${colSpan[size]}`,
         position: "relative",
@@ -51,7 +49,7 @@ function FeaturedTile({ project, reduced }: { project: Project; reduced: boolean
     >
       <Link href={`/projects/${project.slug}`} onClick={captureScroll} className="group" style={{ display: "block", width: "100%", height: "100%" }}>
         {imgUrl && (
-          <Image
+          <ImageWithPlaceholder
             src={imgUrl}
             alt={project.title}
             fill
@@ -80,7 +78,7 @@ function FeaturedTile({ project, reduced }: { project: Project; reduced: boolean
           </p>
         </motion.div>
       </Link>
-    </motion.div>
+    </div>
   );
 }
 
@@ -93,14 +91,13 @@ function OtherTile({ project, reduced }: { project: Project; reduced: boolean })
 
   return (
     <motion.div
-      variants={staggerItem}
       whileHover={reduced ? undefined : { y: -3 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
       style={{ borderRadius: "10px", overflow: "hidden", background: "#111" }}
     >
       <Link href={`/projects/${project.slug}`} onClick={captureScroll} className="group" style={{ display: "block", position: "relative", aspectRatio: "3/2" }}>
         {imgUrl ? (
-          <Image src={imgUrl} alt={project.title} fill quality={85} style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 25vw" />
+          <ImageWithPlaceholder src={imgUrl} alt={project.title} fill quality={85} style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 25vw" />
         ) : (
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <p style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -148,14 +145,6 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
   const featured = projects.filter((p) => p.featured);
   const other = projects.filter((p) => !p.featured);
 
-  function fu(delay: number) {
-    return {
-      initial: { opacity: 0, y: reduced ? 0 : 14 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.5, delay, ease },
-    };
-  }
-
   return (
     <section
       style={{
@@ -170,16 +159,13 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
       <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 6rem", position: "relative", zIndex: 10 }}>
 
         {/* Featured section */}
-        <motion.p className="section-label" style={{ marginBottom: "1.5rem" }} {...fu(0)}>
+        <p className="section-label" style={{ marginBottom: "1.5rem" }}>
           Projects
-        </motion.p>
+        </p>
 
         {featured.length > 0 && (
-          <motion.div
+          <div
             className="featured-grid"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(6, 1fr)",
@@ -190,24 +176,21 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
             {featured.map((p) => (
               <FeaturedTile key={p._id} project={p} reduced={!!reduced} />
             ))}
-          </motion.div>
+          </div>
         )}
 
         {/* See Other Work section */}
         {other.length > 0 && (
           <>
-            <motion.div {...fu(0.1)} style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
               <p style={{ fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
                 See Other Work
               </p>
               <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.08)" }} />
-            </motion.div>
+            </div>
 
-            <motion.div
+            <div
               className="other-grid"
-              variants={staggerContainer}
-              initial="hidden"
-              animate="visible"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 1fr)",
@@ -217,14 +200,14 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
               {other.map((p) => (
                 <OtherTile key={p._id} project={p} reduced={!!reduced} />
               ))}
-            </motion.div>
+            </div>
           </>
         )}
 
         {featured.length === 0 && other.length === 0 && (
-          <motion.p {...fu(0.1)} style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+          <p style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.8rem", letterSpacing: "0.08em", textTransform: "uppercase" }}>
             No projects yet
-          </motion.p>
+          </p>
         )}
       </div>
     </section>

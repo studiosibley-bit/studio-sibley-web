@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { fadeUp, reducedFadeUp } from "@/lib/motion";
 
 type Testimonial = {
   _id: string;
@@ -20,7 +19,6 @@ export default function HeroClient({
   bgUrl?: string;
 }) {
   const reduced = useReducedMotion();
-  const variants = reduced ? reducedFadeUp : fadeUp;
 
   return (
     <section
@@ -37,7 +35,7 @@ export default function HeroClient({
       }}
     >
       <div style={{ position: "relative", zIndex: 1, width: "100%" }}>
-        <motion.h1
+        <h1
           style={{
             fontSize: "clamp(2.8rem, 7.5vw, 6.5rem)",
             fontWeight: 800,
@@ -46,10 +44,6 @@ export default function HeroClient({
             margin: "0 0 1.5rem",
             color: "#fff",
           }}
-          custom={0}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
         >
           What It Looks<br />
           Like{" "}
@@ -59,9 +53,9 @@ export default function HeroClient({
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
           }}>Matters</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
+        <p
           style={{
             fontWeight: 400,
             fontSize: "clamp(0.95rem, 2vw, 1.1rem)",
@@ -70,36 +64,22 @@ export default function HeroClient({
             maxWidth: "420px",
             marginBottom: "2.5rem",
           }}
-          custom={0.15}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
         >
           Photo, video, and design for anyone with a story worth telling.
-        </motion.p>
+        </p>
 
-        <motion.div
-          style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center", marginBottom: "4rem" }}
-          custom={0.25}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-        >
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center", marginBottom: "4rem" }}>
           <Link href="/projects" className="btn-gold" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem", fontWeight: 700 }}>
             View Work
           </Link>
           <Link href="#demo" className="btn-outline-light" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem" }}>
             Watch Demo Reel
           </Link>
-        </motion.div>
+        </div>
 
-        <motion.div
+        <div
           className="testimonials-grid"
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.25rem" }}
-          custom={0.35}
-          variants={variants}
-          initial="hidden"
-          animate="visible"
         >
           {testimonials.map((t) => (
             <motion.div
@@ -130,7 +110,7 @@ export default function HeroClient({
               </div>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

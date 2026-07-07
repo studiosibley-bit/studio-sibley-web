@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ease } from "@/lib/motion";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 
 const para1 =
   "A lot of genuinely great work gets overlooked because the visuals aren't keeping up. Bad design, rushed photography, and generic video can tell people not to take you seriously before you've even had a chance to speak for yourself.";
@@ -20,16 +18,6 @@ export default function AboutClient({
   aboutPhotoUrl: string | null;
   bgUrl?: string;
 }) {
-  const reduced = useReducedMotion();
-
-  function fu(delay: number) {
-    return {
-      initial: { opacity: 0, y: reduced ? 0 : 20 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.55, delay, ease },
-    };
-  }
-
   return (
     <section
       style={{
@@ -43,48 +31,44 @@ export default function AboutClient({
       }}
     >
       <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
-        <motion.div {...fu(0)}>
+        <div>
           <p className="section-label" style={{ marginBottom: "1.25rem" }}>About</p>
-        </motion.div>
+        </div>
 
         <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "4rem", alignItems: "start" }}>
           {/* Left — text */}
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <motion.div {...fu(0.08)}>
+            <div>
               <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, margin: "0 0 1.75rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
                 The Story Behind Studio Sibley
               </h1>
-            </motion.div>
+            </div>
 
-            <motion.div {...fu(0.16)}>
+            <div>
               <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "1.5rem" }}>
                 {para1}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: reduced ? 0 : -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: 0.24, ease }}
-            >
+            <div>
               <p style={{ fontSize: "1.15rem", fontWeight: 700, color: "#fff", lineHeight: 1.35, borderLeft: "3px solid var(--color-coral)", paddingLeft: "1rem", marginBottom: "1.5rem" }}>
                 {callout}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div {...fu(0.32)}>
+            <div>
               <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "1.5rem" }}>
                 {para2}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div {...fu(0.38)}>
+            <div>
               <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "2.25rem" }}>
                 {para3}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div {...fu(0.44)}>
+            <div>
               <Link
                 href="/connect"
                 className="btn-gold"
@@ -92,14 +76,11 @@ export default function AboutClient({
               >
                 Want to Work Together?
               </Link>
-            </motion.div>
+            </div>
           </div>
 
           {/* Right — photo */}
-          <motion.div
-            initial={{ opacity: 0, scale: reduced ? 1 : 0.97, y: reduced ? 0 : 14 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.18, ease }}
+          <div
             style={{
               borderRadius: "16px",
               aspectRatio: "4/5",
@@ -116,11 +97,11 @@ export default function AboutClient({
             }}
           >
             {aboutPhotoUrl ? (
-              <Image src={aboutPhotoUrl} alt="Isaiah Sibley" fill quality={90} style={{ objectFit: "cover" }} sizes="500px" />
+              <ImageWithPlaceholder src={aboutPhotoUrl} alt="Isaiah Sibley" fill quality={90} style={{ objectFit: "cover" }} sizes="500px" />
             ) : (
               "My Photo"
             )}
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

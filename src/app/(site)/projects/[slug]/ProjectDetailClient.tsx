@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { ease, staggerContainer, staggerItem } from "@/lib/motion";
 import { Spotlight, type GalleryImage } from "@/components/Spotlight";
 import BookletViewer from "@/components/BookletViewer";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 import { armScrollRestore } from "@/components/PageTransition";
 
 type Project = {
@@ -56,7 +55,7 @@ function VideoPlayer({ url }: { url: string }) {
           />
         ) : (
           <>
-            <Image src={thumbUrl} alt="Video thumbnail" fill style={{ objectFit: "cover" }} sizes="100vw" />
+            <ImageWithPlaceholder src={thumbUrl} alt="Video thumbnail" fill style={{ objectFit: "cover" }} sizes="100vw" />
             <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.3)" }} />
             <button
               onClick={() => setPlaying(true)}
@@ -104,7 +103,6 @@ function GalleryTile({ img, index, onClick, reduced }: {
 }) {
   return (
     <motion.button
-      variants={staggerItem}
       whileHover={reduced ? undefined : { y: -3 }}
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.18, ease: "easeOut" }}
@@ -116,7 +114,7 @@ function GalleryTile({ img, index, onClick, reduced }: {
         display: "block", padding: 0, outline: "none", width: "100%",
       }}
     >
-      <Image
+      <ImageWithPlaceholder
         src={img.url}
         alt={`Image ${index + 1}`}
         fill
@@ -171,20 +169,12 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
   const fullSizeOffset = showFeaturedImage ? 1 : 0;
   const galleryOffset = fullSizeOffset + project.fullSizeImages.length;
 
-  function fu(delay: number) {
-    return {
-      initial: { opacity: 0, y: reduced ? 0 : 18 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.5, delay, ease },
-    };
-  }
-
   return (
     <>
       <section style={{ paddingTop: "68px", minHeight: "100vh", background: "var(--color-bg)" }}>
         <div className="mobile-content" style={{ padding: "2rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
 
-          <motion.div {...fu(0)}>
+          <div>
             <Link
               href={backHref}
               scroll={false}
@@ -200,43 +190,39 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
             >
               ← Projects
             </Link>
-          </motion.div>
+          </div>
 
-          <motion.h1
-            {...fu(0.08)}
+          <h1
             style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 0.5rem" }}
           >
             {project.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            {...fu(0.15)}
+          <p
             style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--color-coral)", marginBottom: project.description ? "1.25rem" : "1.75rem" }}
           >
             {project.medium} — {project.category}
-          </motion.p>
+          </p>
 
           {project.description && (
-            <motion.p
-              {...fu(0.22)}
+            <p
               style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: "600px", marginBottom: "1.75rem" }}
             >
               {project.description}
-            </motion.p>
+            </p>
           )}
 
           {isVideo && project.videoUrl && (
-            <motion.div {...fu(0.3)}>
+            <div>
               <VideoPlayer url={project.videoUrl} />
-            </motion.div>
+            </div>
           )}
 
           {showFeaturedImage && (
-            <motion.div
-              {...fu(project.description ? 0.3 : 0.22)}
-              style={{ borderRadius: "1rem", overflow: "hidden", marginBottom: (hasFullSize || hasGallery || hasBooklet) ? "1.25rem" : 0, width: "100%" }}
+            <div
+              style={{ position: "relative", borderRadius: "1rem", overflow: "hidden", marginBottom: (hasFullSize || hasGallery || hasBooklet) ? "1.25rem" : 0, width: "100%" }}
             >
-              <Image
+              <ImageWithPlaceholder
                 src={thumbImage.url}
                 alt={project.title}
                 width={thumbImage.width}
@@ -246,29 +232,23 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
                 sizes="(max-width: 768px) 100vw, 1200px"
               />
-            </motion.div>
+            </div>
           )}
 
           {hasBooklet && (
-            <motion.div
-              {...fu(project.description ? 0.3 : 0.22)}
-              style={{ marginBottom: "1.25rem" }}
-            >
+            <div style={{ marginBottom: "1.25rem" }}>
               <BookletViewer pages={project.bookletPages} title={project.title} />
-            </motion.div>
+            </div>
           )}
 
           {hasFullSize && (
             <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: hasGallery ? "0.75rem" : 0 }}>
               {project.fullSizeImages.map((img, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, y: reduced ? 0 : 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 + i * 0.06, ease }}
-                  style={{ borderRadius: "1rem", overflow: "hidden", width: "100%" }}
+                  style={{ position: "relative", borderRadius: "1rem", overflow: "hidden", width: "100%" }}
                 >
-                  <Image
+                  <ImageWithPlaceholder
                     src={img.url}
                     alt={`${project.title} — ${i + 1}`}
                     width={img.width}
@@ -278,16 +258,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
                     sizes="(max-width: 768px) 100vw, 1200px"
                   />
-                </motion.div>
+                </div>
               ))}
             </div>
           )}
 
           {hasGallery && (
-            <motion.div
-              variants={reduced ? undefined : staggerContainer}
-              initial="hidden"
-              animate="visible"
+            <div
               className="gallery-grid"
               style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem" }}
             >
@@ -300,7 +277,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                   reduced={!!reduced}
                 />
               ))}
-            </motion.div>
+            </div>
           )}
 
           {!isVideo && !thumbImage && !hasFullSize && !hasGallery && !hasBooklet && (

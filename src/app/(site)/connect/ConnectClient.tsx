@@ -1,20 +1,6 @@
-"use client";
-
-import { motion, useReducedMotion } from "framer-motion";
-import { ease } from "@/lib/motion";
 import ConnectForm from "./ConnectForm";
 
 export default function ConnectClient({ bgUrl }: { bgUrl?: string }) {
-  const reduced = useReducedMotion();
-
-  function fu(delay: number) {
-    return {
-      initial: { opacity: 0, y: reduced ? 0 : 20 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.55, delay, ease },
-    };
-  }
-
   return (
     <section
       style={{
@@ -28,12 +14,11 @@ export default function ConnectClient({ bgUrl }: { bgUrl?: string }) {
       }}
     >
       <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
-        <motion.div {...fu(0)}>
+        <div>
           <p className="section-label" style={{ marginBottom: "1.25rem" }}>Connect</p>
-        </motion.div>
+        </div>
 
-        <motion.h1
-          {...fu(0.08)}
+        <h1
           style={{
             fontSize: "clamp(2rem, 5vw, 3.5rem)",
             fontWeight: 800,
@@ -43,14 +28,11 @@ export default function ConnectClient({ bgUrl }: { bgUrl?: string }) {
           }}
         >
           Send me a message.
-        </motion.h1>
+        </h1>
 
-        <motion.div
-          {...fu(0.18)}
-          style={{ maxWidth: "680px", margin: "0 auto" }}
-        >
+        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
           <ConnectForm />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

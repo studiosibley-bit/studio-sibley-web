@@ -17,10 +17,6 @@
   --color-white: #FFFFFF;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 /* Used by PageTransition's scroll-restore: hides page content while a saved
    scroll position is being applied, so the wrong position never paints. A
    static rule (not a dynamically inserted <style> tag) so there's no timing
@@ -150,6 +146,17 @@ body {
   background-color: rgba(255, 150, 111, 0.12);
 }
 
+/* Services page: the sticky-scroll experience is desktop-only; a stacked
+   layout is used on mobile instead. Default (desktop) hides the stacked
+   variant AND the standalone CTA block (on desktop the CTA is the sticky
+   sequence's final pinned slide instead). */
+.services-stacked-mobile {
+  display: none;
+}
+.services-cta-mobile-only {
+  display: none !important;
+}
+
 /* ─── Mobile responsive overrides ──────────────────────────────────────────── */
 /* All desktop layouts use inline styles; !important is required here.          */
 /* Nothing below this comment affects viewports wider than 768px.               */
@@ -159,6 +166,17 @@ body {
   .mobile-content {
     padding-left: 1.25rem !important;
     padding-right: 1.25rem !important;
+  }
+
+  /* Services — swap the desktop sticky-scroll sequence for the stacked layout */
+  .services-sticky-desktop {
+    display: none !important;
+  }
+  .services-stacked-mobile {
+    display: block !important;
+  }
+  .services-cta-mobile-only {
+    display: flex !important;
   }
 
   /* Hero — testimonial cards: 3-col → 1-col */
@@ -184,18 +202,6 @@ body {
   .about-grid {
     grid-template-columns: 1fr !important;
     gap: 2rem !important;
-  }
-
-  /* Services — offering cards: 3-col → stacked, fix dividers */
-  .services-cards {
-    grid-template-columns: 1fr !important;
-  }
-  .services-cards > * {
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  }
-  .services-cards > *:last-child {
-    border-bottom: none !important;
   }
 
   /* Project detail — gallery thumbnails: 3-col → 2-col */

@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ease } from "@/lib/motion";
 import { type GalleryImage } from "@/components/Spotlight";
 import BookletViewer from "@/components/BookletViewer";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 import { armScrollRestore } from "@/components/PageTransition";
 
 type Project = {
@@ -56,7 +54,7 @@ function VideoPlayer({ url }: { url: string }) {
         />
       ) : (
         <>
-          <Image src={thumbUrl} alt="Video thumbnail" fill style={{ objectFit: "cover" }} sizes="100vw" />
+          <ImageWithPlaceholder src={thumbUrl} alt="Video thumbnail" fill style={{ objectFit: "cover" }} sizes="100vw" />
           <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.25)" }} />
           <button
             onClick={() => setPlaying(true)}
@@ -84,7 +82,6 @@ function VideoPlayer({ url }: { url: string }) {
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function FeaturedProjectClient({ project }: { project: Project }) {
-  const reduced = useReducedMotion();
   const isVideo = project.medium === "Video" && !!project.videoUrl;
   const roles = Array.isArray(project.role) ? project.role : project.role ? [project.role] : [];
 
@@ -94,14 +91,6 @@ export default function FeaturedProjectClient({ project }: { project: Project })
 
   const hasBooklet = !!project.isBooklet && project.bookletPages.length > 0;
   const contentImages: GalleryImage[] = hasBooklet ? [] : project.galleryImages;
-
-  function fu(delay: number) {
-    return {
-      initial: { opacity: 0, y: reduced ? 0 : 20 },
-      animate: { opacity: 1, y: 0 },
-      transition: { duration: 0.6, delay, ease },
-    };
-  }
 
   return (
     <div style={{ background: "#0a0a0a", paddingTop: "68px" }}>
@@ -154,7 +143,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               <source src={project.heroVideoUrl} type="video/mp4" />
             </video>
           ) : thumbImage ? (
-            <Image
+            <ImageWithPlaceholder
               src={thumbImage.url}
               alt=""
               fill
@@ -177,8 +166,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
 
           {/* Text */}
           <div style={{ position: "relative", zIndex: 1 }}>
-            <motion.p
-              {...fu(0)}
+            <p
               style={{
                 fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.18em",
                 textTransform: "uppercase", color: "rgba(255,255,255,0.5)",
@@ -186,10 +174,9 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               }}
             >
               {[project.medium, project.category, project.year].filter(Boolean).join(" · ")}
-            </motion.p>
+            </p>
 
-            <motion.h1
-              {...fu(0.1)}
+            <h1
               style={{
                 fontSize: "clamp(2.8rem, 7vw, 6rem)", fontWeight: 800,
                 letterSpacing: "-0.03em", lineHeight: 1.0,
@@ -197,11 +184,11 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               }}
             >
               {project.title}
-            </motion.h1>
+            </h1>
 
             <div className="featured-meta" style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
               {roles.length > 0 && (
-                <motion.div {...fu(0.2)}>
+                <div>
                   <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "0.35rem" }}>
                     {roles.length === 1 ? "Role" : "Roles"}
                   </p>
@@ -212,17 +199,17 @@ export default function FeaturedProjectClient({ project }: { project: Project })
                       </p>
                     ))}
                   </div>
-                </motion.div>
+                </div>
               )}
               {project.brief && (
-                <motion.div {...fu(0.25)} style={{ flex: "1 1 320px", minWidth: 0 }}>
+                <div style={{ flex: "1 1 320px", minWidth: 0 }}>
                   <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "0.35rem" }}>
                     Brief
                   </p>
                   <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, fontWeight: 400, whiteSpace: "pre-wrap" }}>
                     {project.brief}
                   </p>
-                </motion.div>
+                </div>
               )}
             </div>
           </div>
@@ -244,14 +231,8 @@ export default function FeaturedProjectClient({ project }: { project: Project })
         {contentImages.length > 0 && (
           <div style={{ display: "flex", flexDirection: "column" }}>
             {contentImages.map((img, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.05 + i * 0.04, ease }}
-                style={{ width: "100%", lineHeight: 0 }}
-              >
-                <Image
+              <div key={i} style={{ position: "relative", width: "100%", lineHeight: 0 }}>
+                <ImageWithPlaceholder
                   src={img.url}
                   alt={`${project.title} — ${i + 1}`}
                   width={img.width}
@@ -261,7 +242,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
                   style={{ width: "100%", height: "auto", display: "block" }}
                   sizes="100vw"
                 />
-              </motion.div>
+              </div>
             ))}
           </div>
         )}

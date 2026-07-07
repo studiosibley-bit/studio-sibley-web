@@ -1,15 +1,15 @@
 "use client";
 
 import { forwardRef, useRef, useState } from "react";
-import Image from "next/image";
 import HTMLFlipBook from "react-pageflip";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 
 export type BookletPage = { url: string; width: number; height: number };
 
 const Page = forwardRef<HTMLDivElement, { img: BookletPage; title: string; index: number }>(
   ({ img, title, index }, ref) => (
     <div ref={ref} style={{ position: "relative", background: "#f5f5f0" }}>
-      <Image
+      <ImageWithPlaceholder
         src={img.url}
         alt={`${title} — page ${index + 1}`}
         fill

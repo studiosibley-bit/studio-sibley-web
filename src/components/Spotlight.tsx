@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 
 export type GalleryImage = { url: string; width: number; height: number };
 
@@ -142,7 +142,7 @@ function ZoomableImage({
           userSelect: "none",
         }}
       >
-        <Image
+        <ImageWithPlaceholder
           src={src}
           width={width}
           height={height}
