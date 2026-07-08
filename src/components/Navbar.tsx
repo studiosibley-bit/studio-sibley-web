@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import LogoMark from "./LogoMark";
 import { ease } from "@/lib/motion";
 
 const navLinks = [
@@ -41,11 +41,15 @@ export default function Navbar() {
     >
       <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <LogoMark size={30} />
-          <span style={{ fontWeight: 700, fontSize: "1rem", letterSpacing: "0.01em" }}>
-            studiosibley
-          </span>
+        <Link href="/" className="flex items-center shrink-0" aria-label="Studio Sibley home">
+          <Image
+            src="/horizontal_logo.png"
+            alt="Studio Sibley"
+            width={161}
+            height={30}
+            priority
+            style={{ height: "30px", width: "auto" }}
+          />
         </Link>
 
         {/* Desktop nav */}

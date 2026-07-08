@@ -65,7 +65,7 @@ export default function HeroClient({
             marginBottom: "2.5rem",
           }}
         >
-          Photo, video, and design for anyone with a story worth telling.
+          Design, photo, and video for anyone with a story worth telling.
         </p>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center", marginBottom: "4rem" }}>
