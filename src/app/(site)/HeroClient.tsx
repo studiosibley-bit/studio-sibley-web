@@ -72,6 +72,9 @@ export default function HeroClient({
           <Link href="/projects" className="btn-gold" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem", fontWeight: 700 }}>
             View Work
           </Link>
+          <Link href="/connect" className="btn-outline-light" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem" }}>
+            Contact
+          </Link>
         </div>
 
         <div
