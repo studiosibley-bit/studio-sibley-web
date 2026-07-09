@@ -6,6 +6,14 @@ export const siteSettings = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'showTestimonials',
+      title: 'Show testimonials on home page',
+      type: 'boolean',
+      description:
+        'Turn the testimonials section on the home page on or off. Keep this OFF until you have real testimonials to show.',
+      initialValue: false,
+    }),
+    defineField({
       name: 'aboutPhoto',
       title: 'About Photo',
       type: 'image',

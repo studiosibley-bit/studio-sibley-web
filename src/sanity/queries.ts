@@ -3,6 +3,7 @@ import { groq } from 'next-sanity'
 type SanityImageRef = { asset: { _ref: string } }
 
 export type SiteSettings = {
+  showTestimonials?: boolean
   aboutPhoto?: SanityImageRef
   heroBg?: SanityImageRef
   projectsBg?: SanityImageRef
@@ -32,6 +33,11 @@ export type ListProject = {
   thumbnail?: SanityImageRef & { dimensions?: { width: number; height: number } }
   description?: string
 }
+
+// Just the slugs — used to build the sitemap.
+export const projectSlugsQuery = groq`
+  *[_type == "project" && defined(slug.current)].slug.current
+`
 
 export const projectsQuery = groq`
   *[_type == "project"] | order(order asc, _createdAt desc) {
@@ -101,6 +107,7 @@ export const testimonialsQuery = groq`
 
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
+    showTestimonials,
     aboutPhoto,
     heroBg,
     projectsBg,

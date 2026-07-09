@@ -27,6 +27,9 @@ const defaultTestimonials = [
 export default async function Home() {
   let testimonials = defaultTestimonials;
   let bgUrl: string | undefined;
+  // Off by default — the testimonials section only renders once it's explicitly
+  // enabled in Sanity (Site Settings → "Show testimonials on home page").
+  let showTestimonials = false;
 
   try {
     const [fetched, settings] = await Promise.all([
@@ -35,9 +38,12 @@ export default async function Home() {
     ]);
     if (fetched && fetched.length > 0) testimonials = fetched;
     if (settings?.heroBg) bgUrl = urlFor(settings.heroBg).width(1920).url();
+    showTestimonials = settings?.showTestimonials === true;
   } catch {
     // Falls back to defaults when Sanity isn't configured yet
   }
 
-  return <HeroClient testimonials={testimonials} bgUrl={bgUrl} />;
+  return (
+    <HeroClient testimonials={testimonials} bgUrl={bgUrl} showTestimonials={showTestimonials} />
+  );
 }

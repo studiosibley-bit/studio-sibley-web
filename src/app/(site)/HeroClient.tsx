@@ -14,9 +14,11 @@ type Testimonial = {
 export default function HeroClient({
   testimonials,
   bgUrl,
+  showTestimonials = false,
 }: {
   testimonials: Testimonial[];
   bgUrl?: string;
+  showTestimonials?: boolean;
 }) {
   const reduced = useReducedMotion();
 
@@ -77,40 +79,42 @@ export default function HeroClient({
           </Link>
         </div>
 
-        <div
-          className="testimonials-grid"
-          style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.25rem" }}
-        >
-          {testimonials.map((t) => (
-            <motion.div
-              key={t._id}
-              whileHover={reduced ? undefined : { y: -5 }}
-              transition={{ duration: 0.2, ease: "easeOut" }}
-              style={{
-                background: "rgba(51,65,85,0.55)",
-                backdropFilter: "blur(14px)",
-                WebkitBackdropFilter: "blur(14px)",
-                border: "1px solid rgba(255,255,255,0.08)",
-                borderRadius: "16px",
-                padding: "1.75rem",
-                cursor: "default",
-              }}
-            >
-              <div style={{ display: "flex", gap: "3px", marginBottom: "1rem" }}>
-                {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
-                  <span key={s} style={{ color: "var(--color-gold)", fontSize: "0.85rem" }}>★</span>
-                ))}
-              </div>
-              <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "1.5rem", fontStyle: "italic" }}>
-                &ldquo;{t.quote}&rdquo;
-              </p>
-              <div>
-                <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{t.name}</p>
-                <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", marginTop: "3px" }}>{t.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {showTestimonials && (
+          <div
+            className="testimonials-grid"
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.25rem" }}
+          >
+            {testimonials.map((t) => (
+              <motion.div
+                key={t._id}
+                whileHover={reduced ? undefined : { y: -5 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                style={{
+                  background: "rgba(51,65,85,0.55)",
+                  backdropFilter: "blur(14px)",
+                  WebkitBackdropFilter: "blur(14px)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  borderRadius: "16px",
+                  padding: "1.75rem",
+                  cursor: "default",
+                }}
+              >
+                <div style={{ display: "flex", gap: "3px", marginBottom: "1rem" }}>
+                  {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
+                    <span key={s} style={{ color: "var(--color-gold)", fontSize: "0.85rem" }}>★</span>
+                  ))}
+                </div>
+                <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "1.5rem", fontStyle: "italic" }}>
+                  &ldquo;{t.quote}&rdquo;
+                </p>
+                <div>
+                  <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{t.name}</p>
+                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", marginTop: "3px" }}>{t.role}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
