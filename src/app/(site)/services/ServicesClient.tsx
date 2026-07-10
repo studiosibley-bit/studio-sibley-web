@@ -9,7 +9,7 @@ import {
   useReducedMotion,
   type MotionValue,
 } from "framer-motion";
-import { ease, staggerContainer, staggerItem, reducedStaggerItem } from "@/lib/motion";
+import { ease } from "@/lib/motion";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -584,52 +584,30 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
 
 // ─── Mobile stacked fallback ────────────────────────────────────────────────
 
-function MobileChapter({
-  data,
-  reduced,
-}: {
-  data: Chapter;
-  reduced: boolean;
-}) {
+function MobileChapter({ data }: { data: Chapter }) {
   return (
-    <motion.div
-      variants={reduced ? undefined : staggerContainer}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      style={{ padding: "3.5rem 0", borderTop: "1px solid rgba(255,255,255,0.1)" }}
-    >
-      <motion.p
-        variants={reduced ? reducedStaggerItem : staggerItem}
-        style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-coral)", marginBottom: "0.85rem" }}
-      >
+    <div style={{ padding: "3.5rem 0", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-coral)", marginBottom: "0.85rem" }}>
         {data.num} — {data.label}
-      </motion.p>
-      <motion.h2
-        variants={reduced ? reducedStaggerItem : staggerItem}
-        style={{ fontSize: "clamp(2.6rem, 15vw, 5.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95, margin: "0 0 0.85rem" }}
-      >
+      </p>
+      <h2 style={{ fontSize: "clamp(2.6rem, 15vw, 5.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95, margin: "0 0 0.85rem" }}>
         {data.heading}
-      </motion.h2>
-      <motion.p
-        variants={reduced ? reducedStaggerItem : staggerItem}
-        style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.3rem)", fontStyle: "italic", color: "rgba(255,255,255,0.7)", margin: "0 0 1.75rem", lineHeight: 1.35 }}
-      >
+      </h2>
+      <p style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.3rem)", fontStyle: "italic", color: "rgba(255,255,255,0.7)", margin: "0 0 1.75rem", lineHeight: 1.35 }}>
         {data.statement}
-      </motion.p>
+      </p>
       <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
         {data.items.map((item) => (
-          <motion.li
+          <li
             key={item}
-            variants={reduced ? reducedStaggerItem : staggerItem}
             style={{ display: "flex", alignItems: "center", gap: "0.85rem", fontSize: "clamp(1rem, 1.3vw, 1.2rem)", fontWeight: 500, color: "rgba(255,255,255,0.9)" }}
           >
             <span style={{ width: "22px", height: "1.5px", background: "var(--color-coral)", flexShrink: 0 }} />
             {item}
-          </motion.li>
+          </li>
         ))}
       </ul>
-    </motion.div>
+    </div>
   );
 }
 
@@ -711,7 +689,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
               create a cohesive brand experience wherever your audience finds you.
             </p>
             {chapters.map((c) => (
-              <MobileChapter key={c.key} data={c} reduced={reduced} />
+              <MobileChapter key={c.key} data={c} />
             ))}
           </div>
         </div>

@@ -29,6 +29,7 @@ export type HeroProject = {
 const STRIP_PER_VIEW = 3;
 const STRIP_INTERVAL_MS = 4500;
 const SWIPE_THRESHOLD = 60; // px of horizontal drag to trigger a page change
+const WHEEL_SWIPE_THRESHOLD = 20; // px of horizontal trackpad swipe to trigger a page change
 
 function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced: boolean }) {
   const n = projects.length;
@@ -52,6 +53,32 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
     return () => clearInterval(id);
   }, [reduced, canPage, start, paginate]);
 
+  // Two-finger trackpad swipe (horizontal wheel) to page through, matching the
+  // drag gesture. We lock after one page change and only unlock once the wheel
+  // events stop for a beat, so a single swipe — plus its momentum tail —
+  // advances exactly one page instead of flying through several.
+  const containerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || !canPage) return;
+    let locked = false;
+    let releaseTimer: ReturnType<typeof setTimeout> | undefined;
+    function onWheel(e: WheelEvent) {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return; // vertical scroll — ignore
+      e.preventDefault(); // also suppresses the browser's swipe-to-go-back
+      clearTimeout(releaseTimer);
+      releaseTimer = setTimeout(() => { locked = false; }, 200);
+      if (locked || Math.abs(e.deltaX) < WHEEL_SWIPE_THRESHOLD) return;
+      locked = true;
+      paginate(e.deltaX > 0 ? 1 : -1);
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      clearTimeout(releaseTimer);
+    };
+  }, [canPage, paginate]);
+
   const visible = Array.from({ length: Math.min(STRIP_PER_VIEW, n) }, (_, i) => projects[(start + i) % n]);
 
   const slide = !reduced;
@@ -70,6 +97,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
 
   return (
     <div
+      ref={containerRef}
       style={{ width: "100%", marginTop: "3rem", display: "grid", overflow: "hidden", borderRadius: "12px" }}
       // Suppress the click that follows a swipe so it doesn't open a project.
       onClickCapture={(e) => {
