@@ -39,6 +39,26 @@ export const projectSlugsQuery = groq`
   *[_type == "project" && defined(slug.current)].slug.current
 `
 
+export type FeaturedProject = {
+  _id: string
+  title: string
+  slug: string
+  medium?: string
+  thumbnail?: SanityImageRef
+}
+
+// Featured projects (with a thumbnail) for the home hero strip.
+export const featuredProjectsQuery = groq`
+  *[_type == "project" && featured == true && defined(thumbnail) && defined(slug.current)]
+    | order(order asc, _createdAt desc) {
+      _id,
+      title,
+      "slug": slug.current,
+      medium,
+      thumbnail,
+    }
+`
+
 export const projectsQuery = groq`
   *[_type == "project"] | order(order asc, _createdAt desc) {
     _id,

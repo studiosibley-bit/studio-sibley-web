@@ -1,7 +1,14 @@
 import { client } from "@/sanity/client";
-import { testimonialsQuery, siteSettingsQuery, type Testimonial, type SiteSettings } from "@/sanity/queries";
+import {
+  testimonialsQuery,
+  siteSettingsQuery,
+  featuredProjectsQuery,
+  type Testimonial,
+  type SiteSettings,
+  type FeaturedProject,
+} from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
-import HeroClient from "./HeroClient";
+import HeroClient, { type HeroProject } from "./HeroClient";
 
 const defaultTestimonials = [
   {
@@ -30,20 +37,34 @@ export default async function Home() {
   // Off by default — the testimonials section only renders once it's explicitly
   // enabled in Sanity (Site Settings → "Show testimonials on home page").
   let showTestimonials = false;
+  let heroProjects: HeroProject[] = [];
 
   try {
-    const [fetched, settings] = await Promise.all([
+    const [fetched, settings, featured] = await Promise.all([
       client.fetch<Testimonial[]>(testimonialsQuery),
       client.fetch<SiteSettings>(siteSettingsQuery),
+      client.fetch<FeaturedProject[]>(featuredProjectsQuery),
     ]);
     if (fetched && fetched.length > 0) testimonials = fetched;
     if (settings?.heroBg) bgUrl = urlFor(settings.heroBg).width(1920).url();
     showTestimonials = settings?.showTestimonials === true;
+    heroProjects = (featured ?? [])
+      .filter((p) => p.thumbnail && p.slug)
+      .map((p) => ({
+        slug: p.slug,
+        title: p.title,
+        imgUrl: urlFor(p.thumbnail!).width(1000).height(750).fit("crop").url(),
+      }));
   } catch {
     // Falls back to defaults when Sanity isn't configured yet
   }
 
   return (
-    <HeroClient testimonials={testimonials} bgUrl={bgUrl} showTestimonials={showTestimonials} />
+    <HeroClient
+      testimonials={testimonials}
+      bgUrl={bgUrl}
+      showTestimonials={showTestimonials}
+      heroProjects={heroProjects}
+    />
   );
 }
