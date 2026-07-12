@@ -21,7 +21,7 @@ export default function AboutClient({
   return (
     <section
       style={{
-        paddingTop: "68px",
+        paddingTop: "var(--nav-offset)",
         minHeight: "100vh",
         overflow: "hidden",
         position: "relative",
@@ -30,40 +30,40 @@ export default function AboutClient({
         backgroundPosition: "center",
       }}
     >
-      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
+      <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-64)", position: "relative", zIndex: 1 }}>
         <div>
-          <p className="section-label" style={{ marginBottom: "1.25rem" }}>About</p>
+          <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>About</p>
         </div>
 
-        <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "4rem", alignItems: "start" }}>
+        <div className="about-grid" style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: "var(--space-64)", alignItems: "start" }}>
           {/* Left — text */}
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div>
-              <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, margin: "0 0 1.75rem", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
+              <h1 style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", fontWeight: 800, margin: "0 0 var(--space-28)", letterSpacing: "-0.02em", lineHeight: 1.1 }}>
                 The Story Behind Studio Sibley
               </h1>
             </div>
 
             <div>
-              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "var(--space-24)" }}>
                 {para1}
               </p>
             </div>
 
             <div>
-              <p style={{ fontSize: "1.15rem", fontWeight: 700, color: "#fff", lineHeight: 1.35, borderLeft: "3px solid var(--color-coral)", paddingLeft: "1rem", marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "1.15rem", fontWeight: 700, color: "#fff", lineHeight: 1.35, borderLeft: "3px solid var(--color-coral)", paddingLeft: "var(--space-16)", marginBottom: "var(--space-24)" }}>
                 {callout}
               </p>
             </div>
 
             <div>
-              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "var(--space-24)" }}>
                 {para2}
               </p>
             </div>
 
             <div>
-              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "2.25rem" }}>
+              <p style={{ fontSize: "0.9rem", lineHeight: 1.85, color: "rgba(255,255,255,0.65)", marginBottom: "var(--space-36)" }}>
                 {para3}
               </p>
             </div>
@@ -72,7 +72,7 @@ export default function AboutClient({
               <Link
                 href="/connect"
                 className="btn-gold"
-                style={{ padding: "0.85rem 2rem", fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
+                style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
               >
                 Want to Work Together?
               </Link>

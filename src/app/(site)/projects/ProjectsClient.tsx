@@ -67,10 +67,10 @@ function FeaturedTile({ project, reduced }: { project: Project; reduced: boolean
             position: "absolute", inset: 0, zIndex: 2,
             background: "linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, transparent 100%)",
             display: "flex", flexDirection: "column", justifyContent: "flex-end",
-            padding: "1.5rem 1.75rem",
+            padding: "var(--space-24) var(--space-28)",
           }}
         >
-          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "0.35rem" }}>
+          <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: "var(--space-4)" }}>
             {[project.medium, ...(Array.isArray(project.role) ? project.role : project.role ? [project.role] : []), project.year].filter(Boolean).join(" · ")}
           </p>
           <p style={{ color: "#fff", fontSize: "1.05rem", fontWeight: 700, letterSpacing: "-0.01em" }}>
@@ -116,7 +116,7 @@ function OtherTile({ project, reduced }: { project: Project; reduced: boolean })
             WebkitBackdropFilter: "blur(8px)",
             border: "1px solid rgba(255,255,255,0.12)",
             borderRadius: "9999px",
-            padding: "0.3rem 0.75rem",
+            padding: "var(--space-4) var(--space-12)",
           }}
         >
           <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>
@@ -125,9 +125,9 @@ function OtherTile({ project, reduced }: { project: Project; reduced: boolean })
         </div>
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col justify-end"
-          style={{ background: "rgba(0,0,0,0.55)", zIndex: 2, padding: "1rem" }}
+          style={{ background: "rgba(0,0,0,0.55)", zIndex: 2, padding: "var(--space-16)" }}
         >
-          <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.2rem" }}>
+          <p style={{ color: "rgba(255,255,255,0.45)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "var(--space-4)" }}>
             {project.medium}
           </p>
           <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.82rem" }}>{project.title}</p>
@@ -148,7 +148,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
   return (
     <section
       style={{
-        paddingTop: "68px",
+        paddingTop: "var(--nav-offset)",
         minHeight: "100vh",
         position: "relative",
         backgroundImage: bgUrl ? `url(${bgUrl})` : "url(/backgrounds/projects.png)",
@@ -156,10 +156,10 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
         backgroundPosition: "center",
       }}
     >
-      <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 6rem", position: "relative", zIndex: 10 }}>
+      <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-96)", position: "relative", zIndex: 10 }}>
 
         {/* Featured section */}
-        <p className="section-label" style={{ marginBottom: "1.5rem" }}>
+        <p className="section-label" style={{ marginBottom: "var(--space-24)" }}>
           Projects
         </p>
 
@@ -169,8 +169,8 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(6, 1fr)",
-              gap: "0.6rem",
-              marginBottom: "5rem",
+              gap: "var(--space-8)",
+              marginBottom: "var(--space-80)",
             }}
           >
             {featured.map((p) => (
@@ -182,7 +182,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
         {/* See Other Work section */}
         {other.length > 0 && (
           <>
-            <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
+            <div style={{ marginBottom: "var(--space-24)", display: "flex", alignItems: "center", gap: "var(--space-16)" }}>
               <p style={{ fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)" }}>
                 See Other Work
               </p>
@@ -194,7 +194,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(4, 1fr)",
-                gap: "0.6rem",
+                gap: "var(--space-8)",
               }}
             >
               {other.map((p) => (

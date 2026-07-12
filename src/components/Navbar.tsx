@@ -70,7 +70,7 @@ export default function Navbar() {
           <Link
             href="/connect"
             className="btn-outline-coral"
-            style={{ padding: "0.45rem 1.1rem", fontSize: "0.88rem" }}
+            style={{  fontSize: "0.88rem" }}
           >
             Let&apos;s Create
           </Link>
@@ -138,7 +138,7 @@ export default function Navbar() {
               <Link
                 href="/connect"
                 className="btn-outline-coral w-fit"
-                style={{ padding: "0.5rem 1.2rem", fontSize: "0.88rem" }}
+                style={{  fontSize: "0.88rem" }}
               >
                 Let&apos;s Create
               </Link>

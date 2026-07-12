@@ -44,7 +44,7 @@ function VideoPlayer({ url }: { url: string }) {
   const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
 
   return (
-    <div style={{ marginBottom: "1.25rem" }}>
+    <div style={{ marginBottom: "var(--space-20)" }}>
       <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", borderRadius: "1rem", overflow: "hidden", background: "#000" }}>
         {playing ? (
           <iframe
@@ -80,7 +80,7 @@ function VideoPlayer({ url }: { url: string }) {
           </>
         )}
       </div>
-      <div style={{ marginTop: "0.6rem", textAlign: "right" }}>
+      <div style={{ marginTop: "var(--space-8)", textAlign: "right" }}>
         <a
           href={url}
           target="_blank"
@@ -171,8 +171,8 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
   return (
     <>
-      <section style={{ paddingTop: "68px", minHeight: "100vh", background: "var(--color-bg)" }}>
-        <div className="mobile-content" style={{ padding: "2rem 2.5rem 4rem", position: "relative", zIndex: 1 }}>
+      <section style={{ paddingTop: "var(--nav-offset)", minHeight: "100vh", background: "var(--color-bg)" }}>
+        <div className="mobile-content" style={{ padding: "var(--space-32) var(--space-40) var(--space-64)", position: "relative", zIndex: 1 }}>
 
           <div>
             <Link
@@ -180,10 +180,10 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
               scroll={false}
               onNavigate={() => armScrollRestore("/projects")}
               style={{
-                display: "inline-flex", alignItems: "center", gap: "0.4rem",
+                display: "inline-flex", alignItems: "center", gap: "var(--space-8)",
                 color: "rgba(255,255,255,0.45)", fontSize: "0.72rem", fontWeight: 700,
                 letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none",
-                marginBottom: "2rem", transition: "color 0.2s",
+                marginBottom: "var(--space-32)", transition: "color 0.2s",
               }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.9)")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.45)")}
@@ -193,7 +193,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           </div>
 
           <h1
-            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 0.5rem" }}
+            style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 var(--space-8)" }}
           >
             {project.title}
           </h1>
@@ -206,7 +206,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
           {project.description && (
             <p
-              style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: "600px", marginBottom: "1.75rem" }}
+              style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.7, maxWidth: "600px", marginBottom: "var(--space-28)" }}
             >
               {project.description}
             </p>
@@ -236,13 +236,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           )}
 
           {hasBooklet && (
-            <div style={{ marginBottom: "1.25rem" }}>
+            <div style={{ marginBottom: "var(--space-20)" }}>
               <BookletViewer pages={project.bookletPages} title={project.title} />
             </div>
           )}
 
           {hasFullSize && (
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: hasGallery ? "0.75rem" : 0 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)", marginBottom: hasGallery ? "0.75rem" : 0 }}>
               {project.fullSizeImages.map((img, i) => (
                 <div
                   key={i}
@@ -266,7 +266,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           {hasGallery && (
             <div
               className="gallery-grid"
-              style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.75rem" }}
+              style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "var(--space-12)" }}
             >
               {project.galleryImages.map((img, i) => (
                 <GalleryTile

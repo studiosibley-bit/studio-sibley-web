@@ -93,7 +93,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
   const contentImages: GalleryImage[] = hasBooklet ? [] : project.galleryImages;
 
   return (
-    <div style={{ background: "#0a0a0a", paddingTop: "68px" }}>
+    <div style={{ background: "#0a0a0a", paddingTop: "var(--nav-offset)" }}>
 
       {/* Fixed back button */}
         <div style={{ position: "fixed", top: "84px", left: "2rem", zIndex: 200 }}>
@@ -102,13 +102,13 @@ export default function FeaturedProjectClient({ project }: { project: Project })
             scroll={false}
             onNavigate={() => armScrollRestore("/projects")}
             style={{
-              display: "inline-flex", alignItems: "center", gap: "0.4rem",
+              display: "inline-flex", alignItems: "center", gap: "var(--space-8)",
               color: "rgba(255,255,255,0.55)", fontSize: "0.68rem", fontWeight: 700,
               letterSpacing: "0.1em", textTransform: "uppercase", textDecoration: "none",
               transition: "color 0.2s",
               background: "rgba(0,0,0,0.5)", backdropFilter: "blur(10px)",
               WebkitBackdropFilter: "blur(10px)",
-              padding: "0.45rem 0.85rem", borderRadius: "9999px",
+              padding: "var(--space-8) var(--space-12)", borderRadius: "9999px",
               border: "1px solid rgba(255,255,255,0.1)",
             }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#fff")}
@@ -126,7 +126,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "5rem 3rem 3rem",
+            padding: "var(--space-80) var(--space-48) var(--space-48)",
             overflow: "hidden",
             background: "#0a0a0a",
           }}
@@ -170,7 +170,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               style={{
                 fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.18em",
                 textTransform: "uppercase", color: "rgba(255,255,255,0.5)",
-                marginBottom: "1.25rem",
+                marginBottom: "var(--space-20)",
               }}
             >
               {[project.medium, project.category, project.year].filter(Boolean).join(" · ")}
@@ -180,19 +180,19 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               style={{
                 fontSize: "clamp(2.8rem, 7vw, 6rem)", fontWeight: 800,
                 letterSpacing: "-0.03em", lineHeight: 1.0,
-                color: "#fff", margin: "0 0 2rem",
+                color: "#fff", margin: "0 0 var(--space-32)",
               }}
             >
               {project.title}
             </h1>
 
-            <div className="featured-meta" style={{ display: "flex", gap: "4rem", flexWrap: "wrap" }}>
+            <div className="featured-meta" style={{ display: "flex", gap: "var(--space-64)", flexWrap: "wrap" }}>
               {roles.length > 0 && (
                 <div>
-                  <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "0.35rem" }}>
+                  <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "var(--space-4)" }}>
                     {roles.length === 1 ? "Role" : "Roles"}
                   </p>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.15rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-4)" }}>
                     {roles.map((r, i) => (
                       <p key={i} style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", fontWeight: 500, margin: 0 }}>
                         {r}
@@ -203,7 +203,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
               )}
               {project.brief && (
                 <div style={{ flex: "1 1 320px", minWidth: 0 }}>
-                  <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "0.35rem" }}>
+                  <p style={{ fontSize: "0.62rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: "var(--space-4)" }}>
                     Brief
                   </p>
                   <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, fontWeight: 400, whiteSpace: "pre-wrap" }}>
@@ -222,7 +222,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
 
         {/* Booklet page-flip viewer */}
         {hasBooklet && (
-          <div className="booklet-wrapper" style={{ padding: "3rem 2rem" }}>
+          <div className="booklet-wrapper" style={{ padding: "var(--space-48) var(--space-32)" }}>
             <BookletViewer pages={project.bookletPages} title={project.title} />
           </div>
         )}
@@ -248,13 +248,13 @@ export default function FeaturedProjectClient({ project }: { project: Project })
         )}
 
         {/* Bottom nav */}
-        <div style={{ padding: "1.75rem 3rem" }}>
+        <div style={{ padding: "var(--space-28) var(--space-48)" }}>
           <Link
             href="/projects"
             scroll={false}
             onNavigate={() => armScrollRestore("/projects")}
             style={{
-              display: "inline-flex", alignItems: "center", gap: "0.5rem",
+              display: "inline-flex", alignItems: "center", gap: "var(--space-8)",
               color: "rgba(255,255,255,0.35)", fontSize: "0.72rem", fontWeight: 700,
               letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none",
               transition: "color 0.2s",

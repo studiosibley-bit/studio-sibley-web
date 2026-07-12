@@ -25,7 +25,7 @@ export default function NotFound() {
         </p>
 
         <div>
-          <Link href="/" className="btn-coral px-7 py-3 text-sm" style={{ letterSpacing: "0.06em" }}>
+          <Link href="/" className="btn-coral text-sm" style={{ letterSpacing: "0.06em" }}>
             Back to Home
           </Link>
         </div>

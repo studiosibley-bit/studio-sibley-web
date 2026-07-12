@@ -98,7 +98,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
   return (
     <div
       ref={containerRef}
-      style={{ width: "100%", marginTop: "3rem", display: "grid", overflow: "hidden", borderRadius: "12px" }}
+      style={{ width: "100%", marginTop: "var(--space-48)", display: "grid", overflow: "hidden", borderRadius: "12px" }}
       // Suppress the click that follows a swipe so it doesn't open a project.
       onClickCapture={(e) => {
         if (Date.now() - swipedAtRef.current < 250) {
@@ -125,7 +125,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
             gridArea: "1 / 1",
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "0.9rem",
+            gap: "var(--space-16)",
             cursor: canPage ? "grab" : "default",
             touchAction: canPage ? "pan-y" : "auto",
           }}
@@ -157,7 +157,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
               />
               <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end"
-                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%)", padding: "0.75rem 0.85rem", pointerEvents: "none" }}
+                style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%)", padding: "var(--space-12) var(--space-12)", pointerEvents: "none" }}
               >
                 <p style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.25 }}>
                   {p.title}
@@ -190,7 +190,7 @@ export default function HeroClient({
         minHeight: "100vh",
         display: "flex",
         alignItems: "flex-start",
-        padding: "7rem 5vw 4rem",
+        padding: "var(--space-112) 5vw var(--space-64)",
         position: "relative",
         overflow: "hidden",
         backgroundImage: bgUrl ? `url(${bgUrl})` : "url(/backgrounds/hero.png)",
@@ -205,7 +205,7 @@ export default function HeroClient({
             fontWeight: 800,
             lineHeight: 1.05,
             letterSpacing: "-0.02em",
-            margin: "0 0 1.5rem",
+            margin: "0 0 var(--space-24)",
             color: "#fff",
           }}
         >
@@ -226,17 +226,17 @@ export default function HeroClient({
             color: "rgba(255,255,255,0.65)",
             lineHeight: 1.65,
             maxWidth: "420px",
-            marginBottom: "2.5rem",
+            marginBottom: "var(--space-40)",
           }}
         >
           Design, photo, and video for anyone with a story worth telling.
         </p>
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", alignItems: "center", marginBottom: "4rem" }}>
-          <Link href="/projects" className="btn-gold" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem", fontWeight: 700 }}>
+        <div style={{ display: "flex", gap: "var(--space-16)", flexWrap: "wrap", alignItems: "center", marginBottom: "var(--space-64)" }}>
+          <Link href="/projects" className="btn-gold" style={{ fontSize: "0.9rem", fontWeight: 700 }}>
             View Work
           </Link>
-          <Link href="/connect" className="btn-outline-light" style={{ padding: "0.75rem 1.8rem", fontSize: "0.9rem" }}>
+          <Link href="/connect" className="btn-outline-light" style={{ fontSize: "0.9rem" }}>
             Contact
           </Link>
         </div>
@@ -246,7 +246,7 @@ export default function HeroClient({
         {showTestimonials && (
           <div
             className="testimonials-grid"
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.25rem" }}
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "var(--space-20)" }}
           >
             {testimonials.map((t) => (
               <motion.div
@@ -259,21 +259,21 @@ export default function HeroClient({
                   WebkitBackdropFilter: "blur(14px)",
                   border: "1px solid rgba(255,255,255,0.08)",
                   borderRadius: "16px",
-                  padding: "1.75rem",
+                  padding: "var(--space-28)",
                   cursor: "default",
                 }}
               >
-                <div style={{ display: "flex", gap: "3px", marginBottom: "1rem" }}>
+                <div style={{ display: "flex", gap: "var(--space-4)", marginBottom: "var(--space-16)" }}>
                   {Array.from({ length: t.rating ?? 5 }).map((_, s) => (
                     <span key={s} style={{ color: "var(--color-gold)", fontSize: "0.85rem" }}>★</span>
                   ))}
                 </div>
-                <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "1.5rem", fontStyle: "italic" }}>
+                <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.88rem", lineHeight: 1.7, marginBottom: "var(--space-24)", fontStyle: "italic" }}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div>
                   <p style={{ color: "#fff", fontWeight: 700, fontSize: "0.85rem" }}>{t.name}</p>
-                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", marginTop: "3px" }}>{t.role}</p>
+                  <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "0.78rem", marginTop: "var(--space-4)" }}>{t.role}</p>
                 </div>
               </motion.div>
             ))}

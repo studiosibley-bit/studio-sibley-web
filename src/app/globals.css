@@ -15,6 +15,56 @@
   --color-coral: #FF966F;
   --color-gold: #FFD694;
   --color-white: #FFFFFF;
+
+  /* ─── Spacing scale ────────────────────────────────────────────────────────
+     Single source of truth for all layout spacing (padding, margin, gap,
+     section rhythm). An 8px system with 4px half-steps for tighter cases.
+     Tokens are named by their pixel value; values are in rem (so they respect
+     the user's root font size) assuming the default 1rem = 16px.
+
+       token          rem       px
+       --space-4      0.25rem    4
+       --space-8      0.5rem     8
+       --space-12     0.75rem   12
+       --space-16     1rem      16
+       --space-20     1.25rem   20
+       --space-24     1.5rem    24
+       --space-28     1.75rem   28
+       --space-32     2rem      32
+       --space-36     2.25rem   36
+       --space-40     2.5rem    40
+       --space-48     3rem      48
+       --space-56     3.5rem    56
+       --space-64     4rem      64
+       --space-80     5rem      80
+       --space-96     6rem      96
+       --space-112    7rem     112
+
+     className-based components (Navbar, Footer, 404) use Tailwind's spacing
+     utilities (p-*, gap-*, etc.), which sit on the same 4/8px grid — e.g.
+     px-6 = 24px = --space-24, gap-8 = 32px = --space-32. One scale, two
+     syntaxes depending on whether a component styles via classes or inline. */
+  --space-4: 0.25rem;
+  --space-8: 0.5rem;
+  --space-12: 0.75rem;
+  --space-16: 1rem;
+  --space-20: 1.25rem;
+  --space-24: 1.5rem;
+  --space-28: 1.75rem;
+  --space-32: 2rem;
+  --space-36: 2.25rem;
+  --space-40: 2.5rem;
+  --space-48: 3rem;
+  --space-56: 3.5rem;
+  --space-64: 4rem;
+  --space-80: 5rem;
+  --space-96: 6rem;
+  --space-112: 7rem;
+
+  /* Semantic: top padding pages use to clear the fixed 64px navbar (h-16),
+     plus a 4px breathing gap. Off-grid on purpose — it's tied to nav height,
+     not the spacing rhythm. */
+  --nav-offset: 68px;
 }
 
 /* Used by PageTransition's scroll-restore: hides page content while a saved
@@ -72,11 +122,17 @@ body {
   color: var(--color-coral);
 }
 
+/* Buttons share one padding system so every button of the same tier matches.
+   Primary/large buttons (.btn-gold, .btn-coral, .btn-outline-light) use the
+   large pair; the compact nav pill (.btn-outline-coral) uses the small pair.
+   Call sites no longer set padding inline — only color/type overrides. */
+
 /* Gold filled pill — primary CTA */
 .btn-gold {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-12) var(--space-32);
   background: linear-gradient(90deg, var(--color-gold), var(--color-coral));
   color: #1a1200;
   font-weight: 700;
@@ -96,6 +152,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-12) var(--space-32);
   background: linear-gradient(90deg, var(--color-gold), var(--color-coral));
   color: #1a1200;
   font-weight: 700;
@@ -115,6 +172,7 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-12) var(--space-32);
   background-color: transparent;
   color: var(--color-white);
   font-weight: 500;
@@ -128,11 +186,12 @@ body {
   border-color: var(--color-white);
 }
 
-/* Coral outline pill — used in navbar */
+/* Coral outline pill — used in navbar (compact tier) */
 .btn-outline-coral {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  padding: var(--space-8) var(--space-20);
   background-color: transparent;
   color: var(--color-coral);
   font-weight: 500;
@@ -164,8 +223,8 @@ body {
 @media (max-width: 768px) {
   /* Reduce side padding on inner page content wrappers */
   .mobile-content {
-    padding-left: 1.25rem !important;
-    padding-right: 1.25rem !important;
+    padding-left: var(--space-20) !important;
+    padding-right: var(--space-20) !important;
   }
 
   /* Services — swap the desktop sticky-scroll sequence for the stacked layout */
@@ -201,7 +260,7 @@ body {
   /* About — text + photo: 2-col → stacked single column */
   .about-grid {
     grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+    gap: var(--space-32) !important;
   }
 
   /* Project detail — gallery thumbnails: 3-col → 2-col */
@@ -212,19 +271,19 @@ body {
   /* About — values row: 3-col → 1-col */
   .about-values {
     grid-template-columns: 1fr !important;
-    gap: 2.5rem !important;
+    gap: var(--space-40) !important;
   }
 
   /* Services — service rows: 3-col → stacked */
   .service-row {
     grid-template-columns: 1fr !important;
-    gap: 1.25rem !important;
+    gap: var(--space-20) !important;
   }
 
   /* Services — how it works: 4-col → 2-col */
   .process-grid {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 2rem !important;
+    gap: var(--space-32) !important;
   }
 
   /* Booklet viewer wrapper: reduce side padding on mobile */
@@ -235,12 +294,12 @@ body {
 
   /* Featured project detail — banner side padding */
   .featured-banner {
-    padding-left: 1.5rem !important;
-    padding-right: 1.5rem !important;
+    padding-left: var(--space-24) !important;
+    padding-right: var(--space-24) !important;
   }
 
   /* Featured project detail — role / brief row: reduce gap so items wrap cleanly */
   .featured-meta {
-    gap: 1.5rem !important;
+    gap: var(--space-24) !important;
   }
 }

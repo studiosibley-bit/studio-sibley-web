@@ -47,7 +47,7 @@ export default function BookletViewer({ pages, title }: { pages: BookletPage[]; 
   const maxHeight = Math.round(maxWidth / aspect);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "var(--space-20)" }}>
       <div style={{ width: "100%", maxWidth: maxWidth * 2, position: "relative" }}>
         <HTMLFlipBook
           ref={bookRef}
@@ -82,7 +82,7 @@ export default function BookletViewer({ pages, title }: { pages: BookletPage[]; 
         </HTMLFlipBook>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "var(--space-24)" }}>
         <button
           type="button"
           onClick={() => bookRef.current?.pageFlip().flipPrev()}

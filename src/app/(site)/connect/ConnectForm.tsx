@@ -8,7 +8,7 @@ const fieldStyle: React.CSSProperties = {
   background: "var(--color-surface)",
   border: "1px solid rgba(51,65,85,0.7)",
   borderRadius: "10px",
-  padding: "0.85rem 1.1rem",
+  padding: "var(--space-12) var(--space-16)",
   color: "rgba(255,255,255,0.5)",
   fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
   fontSize: "0.88rem",
@@ -21,8 +21,8 @@ const fieldStyle: React.CSSProperties = {
 const errorStyle: React.CSSProperties = {
   fontSize: "0.72rem",
   color: "var(--color-coral)",
-  marginTop: "0.3rem",
-  paddingLeft: "0.25rem",
+  marginTop: "var(--space-4)",
+  paddingLeft: "var(--space-4)",
 };
 
 function Field({
@@ -66,11 +66,11 @@ export default function ConnectForm() {
       <div
         style={{
           textAlign: "center",
-          padding: "3rem 1rem",
+          padding: "var(--space-48) var(--space-16)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "0.75rem",
+          gap: "var(--space-12)",
         }}
       >
         <p style={{ fontSize: "1.5rem" }}>✓</p>
@@ -85,8 +85,8 @@ export default function ConnectForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-12)" }}>
         <div>
           <Field name="name" type="text" placeholder="First & Last Name" required />
           <ValidationError field="name" prefix="Name" errors={state.errors} style={errorStyle} />
@@ -109,13 +109,12 @@ export default function ConnectForm() {
         <ValidationError field="message" prefix="Message" errors={state.errors} style={errorStyle} />
       </div>
 
-      <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+      <div style={{ marginTop: "var(--space-24)", textAlign: "center" }}>
         <button
           type="submit"
           disabled={state.submitting}
           className="btn-gold"
           style={{
-            padding: "0.85rem 2.5rem",
             fontSize: "0.9rem",
             fontWeight: 700,
             opacity: state.submitting ? 0.7 : 1,

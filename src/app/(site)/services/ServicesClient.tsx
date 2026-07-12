@@ -101,7 +101,7 @@ function ServiceItem({
         y,
         display: "flex",
         alignItems: "center",
-        gap: "1rem",
+        gap: "var(--space-16)",
         fontSize: "clamp(1rem, 1.8vw, 1.5rem)",
         fontWeight: 500,
         color: "rgba(255,255,255,0.92)",
@@ -147,7 +147,7 @@ function RailItem({
   const lineBg = useTransform(active, [0, 1], ["rgba(255,255,255,0.3)", "#FF966F"]);
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", justifyContent: "flex-end" }}>
+    <div style={{ display: "flex", alignItems: "center", gap: "var(--space-12)", justifyContent: "flex-end" }}>
       <motion.span
         style={{
           color,
@@ -336,7 +336,7 @@ function ChapterPanel({
           y: contentY,
           scale: contentScale,
           width: "100%",
-          padding: "0 2.5rem",
+          padding: "0 var(--space-40)",
         }}
       >
         <p
@@ -346,7 +346,7 @@ function ChapterPanel({
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             color: "var(--color-coral)",
-            marginBottom: "1rem",
+            marginBottom: "var(--space-16)",
           }}
         >
           {data.num} — Services
@@ -357,7 +357,7 @@ function ChapterPanel({
             fontWeight: 800,
             letterSpacing: "-0.04em",
             lineHeight: 0.92,
-            margin: "0 0 1.25rem",
+            margin: "0 0 var(--space-20)",
             color: "#fff",
           }}
         >
@@ -369,14 +369,14 @@ function ChapterPanel({
             fontStyle: "italic",
             fontWeight: 400,
             color: "rgba(255,255,255,0.7)",
-            margin: "0 0 2.5rem",
+            margin: "0 0 var(--space-40)",
             maxWidth: "560px",
             lineHeight: 1.3,
           }}
         >
           {data.statement}
         </p>
-        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1rem", maxWidth: "560px" }}>
+        <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "var(--space-16)", maxWidth: "560px" }}>
           {data.items.map((item, i) => (
             <ServiceItem key={item} progress={progress} range={itemRange(seg, i)} label={item} reduced={reduced} />
           ))}
@@ -423,7 +423,7 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        padding: "0 2.5rem",
+        padding: "0 var(--space-40)",
       }}
     >
       <h2
@@ -432,7 +432,7 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
           fontWeight: 800,
           letterSpacing: "-0.03em",
           lineHeight: 1.05,
-          margin: "0 0 1.25rem",
+          margin: "0 0 var(--space-20)",
         }}
       >
         Tell me your vision...
@@ -443,7 +443,7 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
           fontSize: "clamp(0.95rem, 1.35vw, 1.12rem)",
           maxWidth: "480px",
           lineHeight: 1.7,
-          margin: "0 0 2.25rem",
+          margin: "0 0 var(--space-36)",
         }}
       >
         Whether you need a single service or a complete creative package, every project is
@@ -452,7 +452,7 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
       <Link
         href="/connect"
         className="btn-gold"
-        style={{ padding: "0.85rem 2.2rem", fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
+        style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
       >
         Let&apos;s Create
       </Link>
@@ -492,8 +492,10 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
         className="section-label"
         style={{
           position: "absolute",
-          top: "3.5rem",
-          left: "2.5rem",
+          // Mirrors the page content wrapper's padding so the label lines up
+          // with every other page's header (top = --space-56, left = --space-40).
+          top: "var(--space-56)",
+          left: "var(--space-40)",
         }}
       >
         Services
@@ -509,7 +511,7 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "0 2.5rem",
+          padding: "0 var(--space-40)",
         }}
       >
         <h1
@@ -518,7 +520,7 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
             fontWeight: 800,
             letterSpacing: "-0.035em",
             lineHeight: 1.02,
-            margin: "0 0 1.75rem",
+            margin: "0 0 var(--space-28)",
             maxWidth: "15ch",
           }}
         >
@@ -549,7 +551,7 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "1rem",
+          gap: "var(--space-16)",
         }}
       >
         <span
@@ -586,21 +588,21 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
 
 function MobileChapter({ data }: { data: Chapter }) {
   return (
-    <div style={{ padding: "3.5rem 0", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-      <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-coral)", marginBottom: "0.85rem" }}>
+    <div style={{ padding: "var(--space-56) 0", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+      <p style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--color-coral)", marginBottom: "var(--space-12)" }}>
         {data.num} — {data.label}
       </p>
-      <h2 style={{ fontSize: "clamp(2.6rem, 15vw, 5.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95, margin: "0 0 0.85rem" }}>
+      <h2 style={{ fontSize: "clamp(2.6rem, 15vw, 5.5rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 0.95, margin: "0 0 var(--space-12)" }}>
         {data.heading}
       </h2>
-      <p style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.3rem)", fontStyle: "italic", color: "rgba(255,255,255,0.7)", margin: "0 0 1.75rem", lineHeight: 1.35 }}>
+      <p style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.3rem)", fontStyle: "italic", color: "rgba(255,255,255,0.7)", margin: "0 0 var(--space-28)", lineHeight: 1.35 }}>
         {data.statement}
       </p>
-      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+      <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "var(--space-12)" }}>
         {data.items.map((item) => (
           <li
             key={item}
-            style={{ display: "flex", alignItems: "center", gap: "0.85rem", fontSize: "clamp(1rem, 1.3vw, 1.2rem)", fontWeight: 500, color: "rgba(255,255,255,0.9)" }}
+            style={{ display: "flex", alignItems: "center", gap: "var(--space-12)", fontSize: "clamp(1rem, 1.3vw, 1.2rem)", fontWeight: 500, color: "rgba(255,255,255,0.9)" }}
           >
             <span style={{ width: "22px", height: "1.5px", background: "var(--color-coral)", flexShrink: 0 }} />
             {item}
@@ -625,7 +627,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
   const bg = bgUrl ? `url(${bgUrl})` : "url(/backgrounds/services.png)";
 
   return (
-    <section style={{ paddingTop: "68px", position: "relative", background: "var(--color-bg)" }}>
+    <section style={{ paddingTop: "var(--nav-offset)", position: "relative", background: "var(--color-bg)" }}>
       {/* ── Desktop: sticky scroll sequence — CSS hides this on mobile ── */}
       <div className="services-sticky-desktop">
         <div ref={trackRef} style={{ position: "relative", height: "400vh" }}>
@@ -660,7 +662,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
                   transform: "translateY(-50%)",
                   display: "flex",
                   flexDirection: "column",
-                  gap: "1.25rem",
+                  gap: "var(--space-20)",
                   zIndex: 3,
                 }}
               >
@@ -679,12 +681,12 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         style={{ backgroundImage: bg, backgroundSize: "cover", backgroundPosition: "center" }}
       >
         <div style={{ background: "linear-gradient(180deg, rgba(0,22,42,0.85), rgba(0,22,42,0.94))" }}>
-          <div className="mobile-content" style={{ padding: "3.5rem 2.5rem 1rem" }}>
-            <p className="section-label" style={{ marginBottom: "1.25rem" }}>Services</p>
-            <h1 style={{ fontSize: "clamp(1.9rem, 8vw, 3.4rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 1rem", maxWidth: "14ch" }}>
+          <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-16)" }}>
+            <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>Services</p>
+            <h1 style={{ fontSize: "clamp(1.9rem, 8vw, 3.4rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 var(--space-16)", maxWidth: "14ch" }}>
               Everything your brand needs to be seen
             </h1>
-            <p style={{ fontSize: "clamp(0.9rem, 1.3vw, 1rem)", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, maxWidth: "460px", marginBottom: "3.5rem" }}>
+            <p style={{ fontSize: "clamp(0.9rem, 1.3vw, 1rem)", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, maxWidth: "460px", marginBottom: "var(--space-56)" }}>
               From visual identity to photography and video production, Studio Sibley helps your business
               create a cohesive brand experience wherever your audience finds you.
             </p>
@@ -704,7 +706,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         transition={{ duration: 0.55, ease }}
         className="mobile-content services-cta-mobile-only"
         style={{
-          padding: "7rem 2.5rem",
+          padding: "var(--space-112) var(--space-40)",
           position: "relative",
           zIndex: 1,
           background: "var(--color-bg)",
@@ -719,7 +721,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
             fontSize: "clamp(2.2rem, 5.5vw, 4rem)",
             fontWeight: 800,
             letterSpacing: "-0.02em",
-            margin: "0 0 1rem",
+            margin: "0 0 var(--space-16)",
             lineHeight: 1.05,
           }}
         >
@@ -731,7 +733,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
             fontSize: "0.95rem",
             maxWidth: "480px",
             lineHeight: 1.65,
-            margin: "0 0 2.25rem",
+            margin: "0 0 var(--space-36)",
           }}
         >
           Whether you need a single service or a complete creative package, every project is
@@ -740,7 +742,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         <Link
           href="/connect"
           className="btn-gold"
-          style={{ padding: "0.85rem 2.2rem", fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
+          style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
         >
           Let&apos;s Create
         </Link>

@@ -204,8 +204,8 @@ export function Spotlight({
     >
       {/* Header */}
       <div style={{
-        display: "flex", alignItems: "flex-start", gap: "1.5rem",
-        padding: "1.1rem 1.4rem",
+        display: "flex", alignItems: "flex-start", gap: "var(--space-24)",
+        padding: "var(--space-16) var(--space-24)",
         borderBottom: "1px solid rgba(255,255,255,0.06)",
         flexShrink: 0,
       }}>
@@ -214,12 +214,12 @@ export function Spotlight({
             {title}
           </p>
           {description && (
-            <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.4)", margin: "0.3rem 0 0", lineHeight: 1.6, maxWidth: "60ch" }}>
+            <p style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.4)", margin: "var(--space-4) 0 0", lineHeight: 1.6, maxWidth: "60ch" }}>
               {description}
             </p>
           )}
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem", flexShrink: 0, paddingTop: "0.1rem" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--space-12)", flexShrink: 0, paddingTop: "var(--space-4)" }}>
           {images.length > 1 && (
             <span style={{ fontSize: "0.68rem", letterSpacing: "0.06em", color: "rgba(255,255,255,0.3)" }}>
               {index + 1} / {images.length}
@@ -229,8 +229,8 @@ export function Spotlight({
             onClick={() => setZoomEnabled((v) => !v)}
             title={zoomEnabled ? "Exit zoom" : "Zoom to inspect"}
             style={{
-              display: "flex", alignItems: "center", gap: "0.35rem",
-              padding: "0.35rem 0.7rem", borderRadius: "7px",
+              display: "flex", alignItems: "center", gap: "var(--space-4)",
+              padding: "var(--space-4) var(--space-12)", borderRadius: "7px",
               border: `1px solid ${zoomEnabled ? "rgba(255,212,148,0.45)" : "rgba(255,255,255,0.14)"}`,
               background: zoomEnabled ? "rgba(255,212,148,0.1)" : "rgba(255,255,255,0.06)",
               color: zoomEnabled ? "var(--color-gold)" : "rgba(255,255,255,0.55)",
