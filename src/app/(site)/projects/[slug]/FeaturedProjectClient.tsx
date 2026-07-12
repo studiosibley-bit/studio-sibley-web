@@ -96,7 +96,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
     <div style={{ background: "#0a0a0a", paddingTop: "var(--nav-offset)" }}>
 
       {/* Fixed back button */}
-        <div style={{ position: "fixed", top: "84px", left: "2rem", zIndex: 200 }}>
+        <div style={{ position: "fixed", top: "84px", left: "var(--gutter)", zIndex: 200 }}>
           <Link
             href="/projects"
             scroll={false}
@@ -126,7 +126,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
-            padding: "var(--space-80) var(--space-48) var(--space-48)",
+            padding: "var(--space-80) var(--gutter) var(--space-48)",
             overflow: "hidden",
             background: "#0a0a0a",
           }}
@@ -248,7 +248,7 @@ export default function FeaturedProjectClient({ project }: { project: Project })
         )}
 
         {/* Bottom nav */}
-        <div style={{ padding: "var(--space-28) var(--space-48)" }}>
+        <div style={{ padding: "var(--space-28) var(--gutter)" }}>
           <Link
             href="/projects"
             scroll={false}

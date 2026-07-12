@@ -39,7 +39,7 @@ export default function Navbar() {
         zIndex: 250,
       }}
     >
-      <nav className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
+      <nav className="w-full px-6 sm:px-8 lg:px-12 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center shrink-0" aria-label="Studio Sibley home">
           <Image

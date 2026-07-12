@@ -13,7 +13,7 @@ export default function ConnectClient({ bgUrl }: { bgUrl?: string }) {
         backgroundPosition: "center",
       }}
     >
-      <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-64)", position: "relative", zIndex: 1 }}>
+      <div className="mobile-content" style={{ padding: "var(--space-56) var(--gutter) var(--space-64)", position: "relative", zIndex: 1 }}>
         <div>
           <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>Connect</p>
         </div>

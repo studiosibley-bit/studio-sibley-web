@@ -65,6 +65,20 @@
      plus a 4px breathing gap. Off-grid on purpose — it's tied to nav height,
      not the spacing rhythm. */
   --nav-offset: 68px;
+
+  /* Single site-wide horizontal gutter. Every edge-aligned element — the
+     navbar logo/CTA, the hero, and every page's content wrapper — uses this
+     so they line up at one consistent margin from the viewport edge. Fixed
+     px per breakpoint (never vw), so nothing shifts as the window resizes.
+     Breakpoints match the navbar's Tailwind padding (px-6 / sm:px-8 / lg:px-12). */
+  --gutter: 1.5rem; /* 24px — base/mobile */
+}
+
+@media (min-width: 640px) {
+  :root { --gutter: 2rem; } /* 32px */
+}
+@media (min-width: 1024px) {
+  :root { --gutter: 3rem; } /* 48px */
 }
 
 /* Used by PageTransition's scroll-restore: hides page content while a saved
@@ -221,11 +235,8 @@ body {
 /* Nothing below this comment affects viewports wider than 768px.               */
 
 @media (max-width: 768px) {
-  /* Reduce side padding on inner page content wrappers */
-  .mobile-content {
-    padding-left: var(--space-20) !important;
-    padding-right: var(--space-20) !important;
-  }
+  /* (Inner-wrapper side padding is handled by the responsive --gutter token,
+     so no mobile-specific override is needed here anymore.) */
 
   /* Services — swap the desktop sticky-scroll sequence for the stacked layout */
   .services-sticky-desktop {
@@ -292,11 +303,7 @@ body {
     padding-right: 0 !important;
   }
 
-  /* Featured project detail — banner side padding */
-  .featured-banner {
-    padding-left: var(--space-24) !important;
-    padding-right: var(--space-24) !important;
-  }
+  /* (Featured banner side padding is handled by the responsive --gutter token.) */
 
   /* Featured project detail — role / brief row: reduce gap so items wrap cleanly */
   .featured-meta {

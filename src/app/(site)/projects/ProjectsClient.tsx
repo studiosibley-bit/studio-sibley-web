@@ -156,7 +156,7 @@ export default function ProjectsClient({ projects, bgUrl }: { projects: Project[
         backgroundPosition: "center",
       }}
     >
-      <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-96)", position: "relative", zIndex: 10 }}>
+      <div className="mobile-content" style={{ padding: "var(--space-56) var(--gutter) var(--space-96)", position: "relative", zIndex: 10 }}>
 
         {/* Featured section */}
         <p className="section-label" style={{ marginBottom: "var(--space-24)" }}>

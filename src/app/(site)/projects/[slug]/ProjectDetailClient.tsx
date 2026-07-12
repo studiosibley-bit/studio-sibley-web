@@ -172,7 +172,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
   return (
     <>
       <section style={{ paddingTop: "var(--nav-offset)", minHeight: "100vh", background: "var(--color-bg)" }}>
-        <div className="mobile-content" style={{ padding: "var(--space-32) var(--space-40) var(--space-64)", position: "relative", zIndex: 1 }}>
+        <div className="mobile-content" style={{ padding: "var(--space-32) var(--gutter) var(--space-64)", position: "relative", zIndex: 1 }}>
 
           <div>
             <Link

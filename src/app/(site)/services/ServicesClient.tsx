@@ -336,7 +336,7 @@ function ChapterPanel({
           y: contentY,
           scale: contentScale,
           width: "100%",
-          padding: "0 var(--space-40)",
+          padding: "0 var(--gutter)",
         }}
       >
         <p
@@ -423,7 +423,7 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        padding: "0 var(--space-40)",
+        padding: "0 var(--gutter)",
       }}
     >
       <h2
@@ -495,7 +495,7 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
           // Mirrors the page content wrapper's padding so the label lines up
           // with every other page's header (top = --space-56, left = --space-40).
           top: "var(--space-56)",
-          left: "var(--space-40)",
+          left: "var(--gutter)",
         }}
       >
         Services
@@ -511,7 +511,7 @@ function IntroPanel({ progress, reduced }: { progress: MotionValue<number>; redu
           alignItems: "center",
           justifyContent: "center",
           textAlign: "center",
-          padding: "0 var(--space-40)",
+          padding: "0 var(--gutter)",
         }}
       >
         <h1
@@ -681,7 +681,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         style={{ backgroundImage: bg, backgroundSize: "cover", backgroundPosition: "center" }}
       >
         <div style={{ background: "linear-gradient(180deg, rgba(0,22,42,0.85), rgba(0,22,42,0.94))" }}>
-          <div className="mobile-content" style={{ padding: "var(--space-56) var(--space-40) var(--space-16)" }}>
+          <div className="mobile-content" style={{ padding: "var(--space-56) var(--gutter) var(--space-16)" }}>
             <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>Services</p>
             <h1 style={{ fontSize: "clamp(1.9rem, 8vw, 3.4rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.1, margin: "0 0 var(--space-16)", maxWidth: "14ch" }}>
               Everything your brand needs to be seen
@@ -706,7 +706,7 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
         transition={{ duration: 0.55, ease }}
         className="mobile-content services-cta-mobile-only"
         style={{
-          padding: "var(--space-112) var(--space-40)",
+          padding: "var(--space-112) var(--gutter)",
           position: "relative",
           zIndex: 1,
           background: "var(--color-bg)",

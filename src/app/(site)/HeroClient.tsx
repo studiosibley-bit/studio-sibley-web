@@ -190,7 +190,7 @@ export default function HeroClient({
         minHeight: "100vh",
         display: "flex",
         alignItems: "flex-start",
-        padding: "var(--space-112) 5vw var(--space-64)",
+        padding: "var(--space-112) var(--gutter) var(--space-64)",
         position: "relative",
         overflow: "hidden",
         backgroundImage: bgUrl ? `url(${bgUrl})` : "url(/backgrounds/hero.png)",
