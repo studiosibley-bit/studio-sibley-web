@@ -25,6 +25,11 @@ export type HeroProject = {
 // paging (auto-advance resumes with a fresh timer after each change). Reduced-
 // motion users get no auto-rotation and an opacity-only transition; swipe still
 // works. `initial={false}` keeps the first set from animating in on page load.
+// On mobile (<=768px, see .hero-strip-grid in globals.css) the same 3 tiles
+// stack into a single column instead of sitting 3-across, so each preview is
+// full-width and readable — still 3 at a time, still auto-rotating/swipeable,
+// just laid out vertically. The caption is also forced always-visible on
+// mobile there, since touch has no true hover to reveal it.
 
 const STRIP_PER_VIEW = 3;
 const STRIP_INTERVAL_MS = 4500;
@@ -98,7 +103,6 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
   return (
     <div
       ref={containerRef}
-      className="hero-strip-desktop"
       style={{ width: "100%", marginTop: "var(--space-48)", display: "grid", overflow: "hidden", borderRadius: "12px" }}
       // Suppress the click that follows a swipe so it doesn't open a project.
       onClickCapture={(e) => {
@@ -122,6 +126,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
           dragElastic={0.9}
           onDragStart={() => { draggingRef.current = true; }}
           onDragEnd={onDragEnd}
+          className="hero-strip-grid"
           style={{
             gridArea: "1 / 1",
             display: "grid",
@@ -153,11 +158,11 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
                 quality={82}
                 loading="eager"
                 draggable={false}
-                sizes="(max-width: 768px) 33vw, 30vw"
+                sizes="(max-width: 768px) 100vw, 30vw"
                 style={{ objectFit: "cover", pointerEvents: "none" }}
               />
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end"
+                className="hero-strip-caption absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end"
                 style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%)", padding: "var(--space-12) var(--space-12)", pointerEvents: "none" }}
               >
                 <p style={{ color: "#fff", fontSize: "0.8rem", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.25 }}>
@@ -168,60 +173,6 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
           ))}
         </motion.div>
       </AnimatePresence>
-    </div>
-  );
-}
-
-// ─── Mobile featured-work list ──────────────────────────────────────────────
-// The desktop strip's 3-per-row tiles get too small to read on narrow screens,
-// so mobile gets a plain vertical stack instead: all projects, full-width,
-// normal page scroll (no paging/auto-rotate — nothing to page through when
-// everything is already visible via scroll). Same card look as the desktop
-// tiles (rounded corners, gradient scrim, bold title) but the title is always
-// shown rather than hover-revealed, since touch devices have no true hover.
-
-function FeaturedListMobile({ projects, reduced }: { projects: HeroProject[]; reduced: boolean }) {
-  return (
-    <div className="hero-strip-mobile" style={{ width: "100%", marginTop: "var(--space-48)", flexDirection: "column", gap: "var(--space-16)" }}>
-      {projects.map((p, i) => (
-        <motion.div
-          key={p.slug}
-          initial={{ opacity: 0, y: reduced ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.45, delay: Math.min(i, 4) * 0.06, ease: "easeOut" }}
-        >
-          <Link
-            href={`/projects/${p.slug}`}
-            style={{
-              display: "block",
-              position: "relative",
-              aspectRatio: "4 / 3",
-              borderRadius: "12px",
-              overflow: "hidden",
-              background: "#111",
-            }}
-          >
-            <Image
-              src={p.imgUrl}
-              alt={p.title}
-              fill
-              quality={82}
-              loading={i < 2 ? "eager" : "lazy"}
-              sizes="100vw"
-              style={{ objectFit: "cover" }}
-            />
-            <div
-              className="absolute inset-0 flex items-end"
-              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent 60%)", padding: "var(--space-16)", pointerEvents: "none" }}
-            >
-              <p style={{ color: "#fff", fontSize: "1rem", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.25 }}>
-                {p.title}
-              </p>
-            </div>
-          </Link>
-        </motion.div>
-      ))}
     </div>
   );
 }
@@ -296,12 +247,7 @@ export default function HeroClient({
           </Link>
         </div>
 
-        {heroProjects.length > 0 && (
-          <>
-            <FeaturedStrip projects={heroProjects} reduced={!!reduced} />
-            <FeaturedListMobile projects={heroProjects} reduced={!!reduced} />
-          </>
-        )}
+        {heroProjects.length > 0 && <FeaturedStrip projects={heroProjects} reduced={!!reduced} />}
 
         {showTestimonials && (
           <div

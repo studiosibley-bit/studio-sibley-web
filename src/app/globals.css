@@ -230,13 +230,6 @@ body {
   display: none !important;
 }
 
-/* Hero featured-work strip: the sliding 3-up strip is desktop-only; a plain
-   vertical stack (normal page scroll, no paging) is used on mobile instead —
-   same idea as the Services desktop/mobile split above. */
-.hero-strip-mobile {
-  display: none;
-}
-
 /* ─── Mobile responsive overrides ──────────────────────────────────────────── */
 /* All desktop layouts use inline styles; !important is required here.          */
 /* Nothing below this comment affects viewports wider than 768px.               */
@@ -256,12 +249,15 @@ body {
     display: flex !important;
   }
 
-  /* Hero — swap the sliding 3-up strip for a plain vertical stack */
-  .hero-strip-desktop {
-    display: none !important;
+  /* Hero — featured strip: same 3-at-a-time auto-rotating/swipeable tiles,
+     stacked into a single column instead of sitting 3-across, so each preview
+     is full-width. The caption is forced always-visible since touch has no
+     true hover to reveal it. */
+  .hero-strip-grid {
+    grid-template-columns: 1fr !important;
   }
-  .hero-strip-mobile {
-    display: flex !important;
+  .hero-strip-caption {
+    opacity: 1 !important;
   }
 
   /* Hero — testimonial cards: 3-col → 1-col */
