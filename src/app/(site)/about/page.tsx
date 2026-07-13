@@ -5,19 +5,23 @@ import AboutClient from "./AboutClient";
 
 export default async function AboutPage() {
   let aboutPhotoUrl: string | null = null;
+  let storyPhotoUrl: string | null = null;
   let bgUrl: string | undefined;
 
   try {
     const settings = await client.fetch<SiteSettings>(siteSettingsQuery);
     if (settings?.aboutPhoto) {
-      aboutPhotoUrl = urlFor(settings.aboutPhoto).width(1000).height(1250).fit("crop").url();
+      aboutPhotoUrl = urlFor(settings.aboutPhoto).width(1100).height(1400).fit("crop").url();
+    }
+    if (settings?.aboutStoryPhoto) {
+      storyPhotoUrl = urlFor(settings.aboutStoryPhoto).width(1200).height(900).fit("crop").url();
     }
     if (settings?.aboutBg) {
       bgUrl = urlFor(settings.aboutBg).width(1920).url();
     }
   } catch {
-    // Falls back to placeholder when Sanity isn't configured yet
+    // Falls back to placeholders when Sanity isn't configured yet
   }
 
-  return <AboutClient aboutPhotoUrl={aboutPhotoUrl} bgUrl={bgUrl} />;
+  return <AboutClient aboutPhotoUrl={aboutPhotoUrl} storyPhotoUrl={storyPhotoUrl} bgUrl={bgUrl} />;
 }
