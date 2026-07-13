@@ -97,6 +97,7 @@ export const projectBySlugQuery = groq`
       ...,
       "dimensions": asset->metadata.dimensions,
     },
+    showThumbnailFull,
     description,
     videoUrl,
     fullImages[] {

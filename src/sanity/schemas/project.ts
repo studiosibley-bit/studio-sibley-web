@@ -47,6 +47,15 @@ export const project = defineType({
       validation: (r) => r.required(),
     }),
     defineField({
+      name: 'showThumbnailFull',
+      title: 'Show Thumbnail as Featured Image',
+      type: 'boolean',
+      initialValue: true,
+      description:
+        'Also show the thumbnail as a large image at the top of this project’s detail page, above the gallery. Turn off if you don’t want it repeated there (e.g. it’s only meant as the grid preview).',
+      hidden: ({ document }) => !!document?.featured || !!document?.isBooklet,
+    }),
+    defineField({
       name: 'description',
       title: 'Short Description',
       type: 'text',

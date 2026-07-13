@@ -20,6 +20,7 @@ type Project = {
   thumbnailUrl?: string;
   thumbnailWidth?: number;
   thumbnailHeight?: number;
+  showThumbnailFull?: boolean;
   fullSizeImages: GalleryImage[];
   galleryImages: GalleryImage[];
   isBooklet?: boolean;
@@ -159,7 +160,10 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
     ? { url: project.thumbnailUrl, width: project.thumbnailWidth ?? 1800, height: project.thumbnailHeight ?? 1200 }
     : null;
 
-  const showFeaturedImage = !!thumbImage && (!isVideo || !project.videoUrl) && !hasBooklet;
+  // showThumbnailFull defaults to true when unset (e.g. projects published
+  // before this toggle existed), so existing pages keep their current look.
+  const showFeaturedImage =
+    !!thumbImage && (!isVideo || !project.videoUrl) && !hasBooklet && project.showThumbnailFull !== false;
 
   const spotlightImages: GalleryImage[] = [
     ...(showFeaturedImage ? [thumbImage!] : []),

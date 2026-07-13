@@ -63,6 +63,7 @@ type RawProject = {
   description?: string;
   videoUrl?: string;
   thumbnail?: SanityImage;
+  showThumbnailFull?: boolean;
   fullImages?: SanityImage[];
   images?: SanityImage[];
   isBooklet?: boolean;
@@ -112,6 +113,7 @@ export default async function ProjectDetailPage({
     thumbnailUrl,
     thumbnailWidth,
     thumbnailHeight,
+    showThumbnailFull: raw.showThumbnailFull,
     fullSizeImages,
     galleryImages,
     isBooklet: !!raw.isBooklet,
