@@ -242,11 +242,30 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           )}
 
           {hasFullSize && (
-            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)", marginBottom: hasGallery ? "0.75rem" : 0 }}>
+            // Responsive masonry: column count is computed by the browser from
+            // the available width (columnWidth as a target, not a fixed count),
+            // so it reflows on resize with no JS and needs no breakpoints. Each
+            // image keeps its real aspect ratio (via its Sanity dimensions) and
+            // break-inside: avoid keeps a single image from splitting across
+            // two columns.
+            <div
+              style={{
+                columnWidth: "360px",
+                columnGap: "var(--space-12)",
+                marginBottom: hasGallery ? "var(--space-12)" : 0,
+              }}
+            >
               {project.fullSizeImages.map((img, i) => (
                 <div
                   key={i}
-                  style={{ position: "relative", borderRadius: "1rem", overflow: "hidden", width: "100%" }}
+                  style={{
+                    position: "relative",
+                    borderRadius: "1rem",
+                    overflow: "hidden",
+                    width: "100%",
+                    breakInside: "avoid",
+                    marginBottom: "var(--space-12)",
+                  }}
                 >
                   <ImageWithPlaceholder
                     src={img.url}
@@ -256,7 +275,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     quality={90}
                     loading="eager"
                     style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
-                    sizes="(max-width: 768px) 100vw, 1200px"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
               ))}

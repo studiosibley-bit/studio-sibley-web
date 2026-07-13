@@ -230,6 +230,13 @@ body {
   display: none !important;
 }
 
+/* Hero featured-work strip: the sliding 3-up strip is desktop-only; a plain
+   vertical stack (normal page scroll, no paging) is used on mobile instead —
+   same idea as the Services desktop/mobile split above. */
+.hero-strip-mobile {
+  display: none;
+}
+
 /* ─── Mobile responsive overrides ──────────────────────────────────────────── */
 /* All desktop layouts use inline styles; !important is required here.          */
 /* Nothing below this comment affects viewports wider than 768px.               */
@@ -246,6 +253,14 @@ body {
     display: block !important;
   }
   .services-cta-mobile-only {
+    display: flex !important;
+  }
+
+  /* Hero — swap the sliding 3-up strip for a plain vertical stack */
+  .hero-strip-desktop {
+    display: none !important;
+  }
+  .hero-strip-mobile {
     display: flex !important;
   }
 
