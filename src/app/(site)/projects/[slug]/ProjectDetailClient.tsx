@@ -20,7 +20,6 @@ type Project = {
   thumbnailUrl?: string;
   thumbnailWidth?: number;
   thumbnailHeight?: number;
-  showThumbnailFull?: boolean;
   fullSizeImages: GalleryImage[];
   galleryImages: GalleryImage[];
   isBooklet?: boolean;
@@ -160,10 +159,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
     ? { url: project.thumbnailUrl, width: project.thumbnailWidth ?? 1800, height: project.thumbnailHeight ?? 1200 }
     : null;
 
-  // showThumbnailFull defaults to true when unset (e.g. projects published
-  // before this toggle existed), so existing pages keep their current look.
-  const showFeaturedImage =
-    !!thumbImage && (!isVideo || !project.videoUrl) && !hasBooklet && project.showThumbnailFull !== false;
+  const showFeaturedImage = !!thumbImage && (!isVideo || !project.videoUrl) && !hasBooklet;
 
   const spotlightImages: GalleryImage[] = [
     ...(showFeaturedImage ? [thumbImage!] : []),
@@ -172,11 +168,30 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
   ];
   const fullSizeOffset = showFeaturedImage ? 1 : 0;
   const galleryOffset = fullSizeOffset + project.fullSizeImages.length;
+  // Booklets have their own dedicated page-flip viewer, so the rail (which
+  // opens the Spotlight lightbox) doesn't apply there — same rule the rest of
+  // the page already uses for hiding the gallery/full-size grid on booklets.
+  const showRail = !hasBooklet && spotlightImages.length > 0;
 
   return (
     <>
       <section style={{ paddingTop: "var(--nav-offset)", minHeight: "100vh", background: "var(--color-bg)" }}>
         <div className="mobile-content" style={{ padding: "var(--space-32) var(--gutter) var(--space-64)", position: "relative", zIndex: 1 }}>
+          {/* Grid: main content column + a sticky image rail. align-items:"start"
+              keeps each column sized to its own content instead of stretching to
+              match the row, which is what lets the shorter rail's containing
+              block span the full (taller) row height — the standard CSS trick
+              that makes position:sticky able to travel/pin within it. */}
+          <div
+            className="project-detail-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: showRail ? "1fr 140px" : "1fr",
+              gap: "var(--space-24)",
+              alignItems: "start",
+            }}
+          >
+          <div>
 
           <div>
             <Link
@@ -246,30 +261,14 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
           )}
 
           {hasFullSize && (
-            // Responsive masonry: column count is computed by the browser from
-            // the available width (columnWidth as a target, not a fixed count),
-            // so it reflows on resize with no JS and needs no breakpoints. Each
-            // image keeps its real aspect ratio (via its Sanity dimensions) and
-            // break-inside: avoid keeps a single image from splitting across
-            // two columns.
-            <div
-              style={{
-                columnWidth: "360px",
-                columnGap: "var(--space-12)",
-                marginBottom: hasGallery ? "var(--space-12)" : 0,
-              }}
-            >
+            // Full-width, one per row — "full-size" means exactly that: each
+            // image spans the same width as the featured thumbnail above it,
+            // not shrunk into a multi-column grid.
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-12)", marginBottom: hasGallery ? "var(--space-12)" : 0 }}>
               {project.fullSizeImages.map((img, i) => (
                 <div
                   key={i}
-                  style={{
-                    position: "relative",
-                    borderRadius: "1rem",
-                    overflow: "hidden",
-                    width: "100%",
-                    breakInside: "avoid",
-                    marginBottom: "var(--space-12)",
-                  }}
+                  style={{ position: "relative", borderRadius: "1rem", overflow: "hidden", width: "100%" }}
                 >
                   <ImageWithPlaceholder
                     src={img.url}
@@ -279,7 +278,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     quality={90}
                     loading="eager"
                     style={{ width: "100%", height: "auto", display: "block", borderRadius: "1rem" }}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, 1200px"
                   />
                 </div>
               ))}
@@ -308,6 +307,37 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
               No images added yet
             </p>
           )}
+
+          </div>
+
+          {/* Image rail — every image in this project (same list the Spotlight
+              lightbox uses), one click away from the same lightbox the gallery
+              grid opens. Sticky so it stays in view while scrolling past the
+              description/images; scrolls internally once its own content
+              exceeds the viewport. Hidden on mobile (see globals.css) — the
+              masonry/gallery grid already serves that role there. */}
+          {showRail && (
+            <div
+              className="project-image-rail"
+              style={{
+                position: "sticky",
+                top: "calc(var(--nav-offset) + var(--space-24))",
+                display: "flex",
+                flexDirection: "column",
+                gap: "var(--space-12)",
+                maxHeight: "calc(100vh - var(--nav-offset) - var(--space-48))",
+                overflowY: "auto",
+              }}
+            >
+              {spotlightImages.map((img, i) => (
+                <div key={i} style={{ flexShrink: 0 }}>
+                  <GalleryTile img={img} index={i} onClick={() => setSpotlightIndex(i)} reduced={!!reduced} />
+                </div>
+              ))}
+            </div>
+          )}
+
+          </div>
         </div>
       </section>
 

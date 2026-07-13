@@ -279,6 +279,16 @@ body {
     grid-template-columns: repeat(2, 1fr) !important;
   }
 
+  /* Project detail — drop the sticky image rail on mobile (the masonry/
+     gallery grid already inline in the page serves the same browsing role
+     there) and collapse the grid back to a single column. */
+  .project-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .project-image-rail {
+    display: none !important;
+  }
+
   /* About — text + photo: 2-col → stacked single column */
   .about-grid {
     grid-template-columns: 1fr !important;
