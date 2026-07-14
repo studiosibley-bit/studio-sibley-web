@@ -174,7 +174,6 @@ export default function AboutClient({
 
           {/* The Story — full-width, left-justified */}
           <div>
-            <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>The Story</p>
             <h2 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.85rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, margin: 0, color: "#fff" }}>
               {storyHeading} {storySub}
             </h2>
@@ -192,7 +191,6 @@ export default function AboutClient({
               padding: "clamp(var(--space-32), 5vw, var(--space-56))",
             }}
           >
-            <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>The Mission</p>
             <p style={{ fontSize: "clamp(1.4rem, 3vw, 2.3rem)", fontWeight: 700, color: "#fff", lineHeight: 1.35, letterSpacing: "-0.01em", margin: 0 }}>
               Studio Sibley was built to help entrepreneurs, musicians, nonprofits, churches,
               creators, and personal brands present themselves with the{" "}
