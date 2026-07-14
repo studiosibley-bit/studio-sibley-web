@@ -5,7 +5,7 @@ import Link from "next/link";
 // ─── Copy ────────────────────────────────────────────────────────────────────
 // The founder story, distributed across the page's sections.
 const storyHeading =
-  "It all started with making short films on an iPad, which quickly grew into a passion for filmmaking.";
+  "I'm the founder of Studio Sibley. It all started with making short films on an iPad, which quickly grew into a passion for filmmaking.";
 const storySub =
   "In high school, I launched a photography business, offering prom and graduation portraits to classmates.";
 
