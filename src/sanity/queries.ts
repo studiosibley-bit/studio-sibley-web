@@ -5,7 +5,6 @@ type SanityImageRef = { asset: { _ref: string } }
 export type SiteSettings = {
   showTestimonials?: boolean
   aboutPhoto?: SanityImageRef
-  aboutStoryPhoto?: SanityImageRef
   heroBg?: SanityImageRef
   projectsBg?: SanityImageRef
   servicesBg?: SanityImageRef
@@ -130,7 +129,6 @@ export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     showTestimonials,
     aboutPhoto,
-    aboutStoryPhoto,
     heroBg,
     projectsBg,
     servicesBg,

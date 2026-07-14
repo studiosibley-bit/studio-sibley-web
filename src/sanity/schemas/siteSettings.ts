@@ -21,13 +21,6 @@ export const siteSettings = defineType({
       options: { hotspot: true },
     }),
     defineField({
-      name: 'aboutStoryPhoto',
-      title: 'About — Story Photo',
-      type: 'image',
-      description: 'The second photo on the About page, beside the "It all started…" story heading.',
-      options: { hotspot: true },
-    }),
-    defineField({
       name: 'heroBg',
       title: 'Hero Background',
       type: 'image',

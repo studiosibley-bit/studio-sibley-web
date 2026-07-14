@@ -298,12 +298,6 @@ body {
     display: none !important;
   }
 
-  /* About story — heading/body + photo: 2-col → 1-col */
-  .about-story {
-    grid-template-columns: 1fr !important;
-    gap: var(--space-32) !important;
-  }
-
   /* Project detail — gallery thumbnails: 3-col → 2-col */
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr) !important;

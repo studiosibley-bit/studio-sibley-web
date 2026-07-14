@@ -1,12 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import ImageWithPlaceholder from "@/components/ImageWithPlaceholder";
 
 // ─── Copy ────────────────────────────────────────────────────────────────────
 // The founder story, distributed across the page's sections.
-const heroSubtitle = "I'm the founder of Studio Sibley.";
-
 const storyHeading =
   "It all started with making short films on an iPad, which quickly grew into a passion for filmmaking.";
 const storySub =
@@ -60,33 +57,6 @@ function IconEye() {
 
 // ─── Photo slot — real image, or an on-brand placeholder until one is set ────
 
-function PhotoSlot({ url, alt, label, style }: {
-  url: string | null;
-  alt: string;
-  label: string;
-  style?: React.CSSProperties;
-}) {
-  return (
-    <div style={{ position: "relative", overflow: "hidden", background: "#0d1826", ...style }}>
-      {url ? (
-        <ImageWithPlaceholder src={url} alt={alt} fill quality={90} style={{ objectFit: "cover" }} sizes="(max-width: 768px) 100vw, 50vw" />
-      ) : (
-        <div
-          style={{
-            position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
-            background: "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))",
-            border: "1px solid rgba(255,255,255,0.08)",
-            color: "rgba(255,255,255,0.3)", fontSize: "0.72rem", fontWeight: 700,
-            letterSpacing: "0.14em", textTransform: "uppercase",
-          }}
-        >
-          {label}
-        </div>
-      )}
-    </div>
-  );
-}
-
 // ─── Timeline ─────────────────────────────────────────────────────────────────
 
 type Step = { icon: React.ReactNode; heading: React.ReactNode };
@@ -137,11 +107,9 @@ function Timeline({ steps }: { steps: Step[] }) {
 
 export default function AboutClient({
   aboutPhotoUrl,
-  storyPhotoUrl,
   bgUrl,
 }: {
   aboutPhotoUrl: string | null;
-  storyPhotoUrl: string | null;
   bgUrl?: string;
 }) {
   const steps: Step[] = [
@@ -198,29 +166,18 @@ export default function AboutClient({
               aboutPhotoUrl stays wired for it. */}
           <div style={{ maxWidth: "760px" }}>
             <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>About Me</p>
-            <h1 style={{ fontSize: "clamp(2.6rem, 6vw, 4.5rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.04, margin: "0 0 var(--space-24)", color: "#fff" }}>
+            <h1 style={{ fontSize: "clamp(2.6rem, 6vw, 4.5rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.04, margin: 0, color: "#fff" }}>
               Hi, I&apos;m<br />
               <span className="gold-text">Isaiah Sibley.</span>
             </h1>
-            <p style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)", color: "rgba(255,255,255,0.6)", lineHeight: 1.65, margin: 0, maxWidth: "34ch" }}>
-              {heroSubtitle}
-            </p>
           </div>
 
-          {/* The Story — heading + body left, photo right */}
-          <div className="about-story" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(var(--space-32), 5vw, var(--space-64))", alignItems: "start" }}>
-            <div>
-              <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>The Story</p>
-              <h2 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.85rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, margin: 0, color: "#fff" }}>
-                {storyHeading} {storySub}
-              </h2>
-            </div>
-            <PhotoSlot
-              url={storyPhotoUrl}
-              alt="Filming on an iPad"
-              label="Story photo"
-              style={{ borderRadius: "16px", aspectRatio: "4 / 3", width: "100%" }}
-            />
+          {/* The Story — full-width, left-justified */}
+          <div>
+            <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>The Story</p>
+            <h2 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.85rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, margin: 0, color: "#fff" }}>
+              {storyHeading} {storySub}
+            </h2>
           </div>
 
           {/* Timeline */}
@@ -248,14 +205,9 @@ export default function AboutClient({
             <Link
               href="/connect"
               className="btn-gold"
-              style={{ display: "inline-flex", alignItems: "center", gap: "var(--space-12)", fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.02em" }}
+              style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
             >
-              Let&apos;s Create Together
-              <span aria-hidden style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: "50%", background: "rgba(0,0,0,0.14)" }}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1a1200" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </span>
+              Let&apos;s Create
             </Link>
           </div>
 
