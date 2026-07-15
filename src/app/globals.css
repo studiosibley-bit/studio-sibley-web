@@ -269,6 +269,21 @@ body {
     opacity: 1 !important;
   }
 
+  /* About hero — text + right-bleeding portrait: stack (text, then a
+     centered, contained portrait below — no edge-bleed on narrow screens). */
+  .about-hero {
+    display: block !important;
+    min-height: 0 !important;
+  }
+  .about-hero-photo {
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    right: auto !important;
+    width: clamp(200px, 60vw, 320px) !important;
+    margin: -40px auto 0 !important;
+  }
+
   /* Hero — testimonial cards: 3-col → 1-col */
   .testimonials-grid {
     grid-template-columns: 1fr !important;

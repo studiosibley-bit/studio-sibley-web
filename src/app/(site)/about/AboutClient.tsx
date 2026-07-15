@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 // ─── Copy ────────────────────────────────────────────────────────────────────
 // The founder story, distributed across the page's sections.
@@ -8,6 +9,21 @@ const storyHeading =
   "I'm the founder of Studio Sibley. It all started with making short films on an iPad, which quickly grew into a passion for filmmaking.";
 const storySub =
   "In high school, I launched a photography business, offering prom and graduation portraits to classmates.";
+
+// Shared by the hero row's minHeight and the portrait's own height, so the
+// portrait's bottom (anchored via bottom:0) always lines up with the row's
+// bottom edge — which, since the panel below it has no bottom padding, is
+// also the panel's own bottom edge.
+const HERO_PHOTO_HEIGHT = "clamp(280px, 29vw, 400px)";
+// The row (and thus the panel, which has no bottom padding of its own) can
+// be shorter than the photo without clipping it behind the fixed navbar —
+// the photo's top just rises above the row's top by the difference. 40px of
+// rise still clears the navbar (nav-offset 68px) with a little margin.
+const HERO_ROW_MIN_HEIGHT = `calc(${HERO_PHOTO_HEIGHT} - 40px)`;
+// Matches the trimmed portrait's actual pixel dimensions (1600x1516 — the
+// source had 84px of transparent margin above the hair, now cropped out),
+// so the box has no letterboxing.
+const HERO_PHOTO_ASPECT = "1600 / 1516";
 
 // ─── Gradient-stroked line icons (one per timeline step) ─────────────────────
 
@@ -54,8 +70,6 @@ function IconEye() {
     </svg>
   );
 }
-
-// ─── Photo slot — real image, or an on-brand placeholder until one is set ────
 
 // ─── Timeline ─────────────────────────────────────────────────────────────────
 
@@ -106,10 +120,8 @@ function Timeline({ steps }: { steps: Step[] }) {
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function AboutClient({
-  aboutPhotoUrl,
   bgUrl,
 }: {
-  aboutPhotoUrl: string | null;
   bgUrl?: string;
 }) {
   const steps: Step[] = [
@@ -148,7 +160,6 @@ export default function AboutClient({
   return (
     <section
       style={{
-        paddingTop: "var(--nav-offset)",
         position: "relative",
         overflow: "hidden",
         backgroundImage: bgUrl ? `url(${bgUrl})` : "url(/backgrounds/about.png)",
@@ -156,21 +167,50 @@ export default function AboutClient({
         backgroundPosition: "center",
       }}
     >
-      {/* Standard page wrapper — same as every other page, so the "About Me"
-          label lands at the site header height (nav-offset + --space-56) and
-          every section shares one consistent vertical gap. */}
-      <div className="mobile-content" style={{ padding: "var(--space-56) var(--gutter) var(--space-96)", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(var(--space-56), 7vw, var(--space-80))" }}>
-
-          {/* Hero text. The portrait returns to the right once provided —
-              aboutPhotoUrl stays wired for it. */}
-          <div style={{ maxWidth: "760px" }}>
-            <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>About Me</p>
-            <h1 style={{ fontSize: "clamp(2.6rem, 6vw, 4.5rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.04, margin: 0, color: "#fff" }}>
-              Hi, I&apos;m<br />
-              <span className="gold-text">Isaiah Sibley.</span>
-            </h1>
+      {/* Full-bleed hero panel — spans the full viewport edge-to-edge and
+          starts at the true top of the screen (behind the fixed navbar), so
+          "About Me" lands at the exact same header height as every other
+          page (nav-offset + --space-56). The portrait now lives inside this
+          panel too, rather than sharing a small text-hugging card with it.
+          It's a transparent-background cutout, so it blends into the panel
+          on its own (no fade-gradient overlay needed). */}
+      <div style={{ position: "relative", background: "rgba(0,22,42,0.75)", paddingTop: "var(--nav-offset)" }}>
+        {/* No bottom padding here — the portrait's bottom (anchored via
+            bottom:0 below) lands exactly on the panel's own bottom edge,
+            so "portrait bottom aligned with panel bottom" is structural,
+            not just matching numbers. */}
+        <div className="mobile-content" style={{ padding: "var(--space-56) var(--gutter) 0", position: "relative" }}>
+          <div className="about-hero" style={{ position: "relative", display: "flex", alignItems: "flex-start", minHeight: HERO_ROW_MIN_HEIGHT }}>
+            <div className="about-hero-text" style={{ position: "relative", zIndex: 1 }}>
+              <p className="section-label" style={{ marginBottom: "var(--space-20)" }}>About Me</p>
+              <h1 style={{ fontSize: "clamp(3.2rem, 8.5vw, 7.5rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.04, margin: 0, color: "#fff" }}>
+                Hi, I&apos;m<br />
+                <span className="gold-text">Isaiah Sibley.</span>
+              </h1>
+            </div>
+            <div
+              className="about-hero-photo"
+              style={{ position: "absolute", bottom: 0, right: "clamp(60px, 6.5vw, 110px)", height: HERO_PHOTO_HEIGHT, aspectRatio: HERO_PHOTO_ASPECT, pointerEvents: "none" }}
+            >
+              <Image
+                src="/portraits/isaiah-about.png"
+                alt="Isaiah Sibley"
+                fill
+                priority
+                quality={90}
+                style={{ objectFit: "contain", objectPosition: "bottom" }}
+                sizes="(max-width: 768px) 60vw, 420px"
+              />
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Standard page wrapper for everything below the hero panel — same as
+          every other page. No top padding here since the panel above already
+          ends with its own bottom breathing room. */}
+      <div className="mobile-content" style={{ padding: "0 var(--gutter) var(--space-96)", position: "relative", zIndex: 1 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(var(--space-56), 7vw, var(--space-80))", paddingTop: "clamp(var(--space-40), 5vw, var(--space-56))" }}>
 
           {/* The Story — full-width, left-justified */}
           <div>
