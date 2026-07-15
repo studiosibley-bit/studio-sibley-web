@@ -6,7 +6,7 @@ import Image from "next/image";
 // ─── Copy ────────────────────────────────────────────────────────────────────
 // The founder story, distributed across the page's sections.
 const storyHeading =
-  "I'm the founder of Studio Sibley. It all started with making short films on an iPad, which quickly grew into a passion for filmmaking.";
+  "My passion for creating all started with making short films on an iPad, which quickly grew into filmmaking.";
 const storySub =
   "In high school, I launched a photography business, offering prom and graduation portraits to classmates.";
 
@@ -24,6 +24,12 @@ const HERO_ROW_MIN_HEIGHT = `calc(${HERO_PHOTO_HEIGHT} - 40px)`;
 // source had 84px of transparent margin above the hair, now cropped out),
 // so the box has no letterboxing.
 const HERO_PHOTO_ASPECT = "1600 / 1516";
+
+// Section spacing below the hero. TIGHT is used between the story paragraph
+// and the timeline, and — at the same value — between the timeline and the
+// mission card. WIDE is the original, larger rhythm, kept for mission→CTA.
+const SECTION_GAP_TIGHT = "clamp(var(--space-24), 4vw, var(--space-40))";
+const SECTION_GAP_WIDE = "clamp(var(--space-56), 7vw, var(--space-80))";
 
 // ─── Gradient-stroked line icons (one per timeline step) ─────────────────────
 
@@ -210,17 +216,19 @@ export default function AboutClient({
           every other page. No top padding here since the panel above already
           ends with its own bottom breathing room. */}
       <div className="mobile-content" style={{ padding: "0 var(--gutter) var(--space-96)", position: "relative", zIndex: 1 }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(var(--space-56), 7vw, var(--space-80))", paddingTop: "clamp(var(--space-40), 5vw, var(--space-56))" }}>
+        <div style={{ display: "flex", flexDirection: "column", paddingTop: "clamp(var(--space-40), 5vw, var(--space-56))" }}>
 
           {/* The Story — full-width, left-justified */}
-          <div>
+          <div style={{ marginBottom: SECTION_GAP_TIGHT }}>
             <h2 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.85rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, margin: 0, color: "#fff" }}>
               {storyHeading} {storySub}
             </h2>
           </div>
 
           {/* Timeline */}
-          <Timeline steps={steps} />
+          <div style={{ marginBottom: SECTION_GAP_TIGHT }}>
+            <Timeline steps={steps} />
+          </div>
 
           {/* The Mission — card */}
           <div
@@ -229,6 +237,7 @@ export default function AboutClient({
               border: "1px solid rgba(255,255,255,0.08)",
               borderRadius: "22px",
               padding: "clamp(var(--space-32), 5vw, var(--space-56))",
+              marginBottom: SECTION_GAP_WIDE,
             }}
           >
             <p style={{ fontSize: "clamp(1.4rem, 3vw, 2.3rem)", fontWeight: 700, color: "#fff", lineHeight: 1.35, letterSpacing: "-0.01em", margin: 0 }}>
