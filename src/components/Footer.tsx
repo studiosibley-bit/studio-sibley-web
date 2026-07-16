@@ -62,7 +62,9 @@ export default function Footer() {
             </svg>
           </a>
           <a
-            href="#"
+            href="https://www.linkedin.com/in/isaiah-sibley-a1093b384/?skipRedirect=true"
+            target="_blank"
+            rel="noopener noreferrer"
             aria-label="LinkedIn"
             style={{ color: "rgba(255,255,255,0.5)", display: "flex", transition: "color 0.2s" }}
             onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--color-coral)")}
