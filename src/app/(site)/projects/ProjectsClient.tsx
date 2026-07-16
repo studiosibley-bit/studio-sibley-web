@@ -120,7 +120,7 @@ function OtherTile({ project, reduced }: { project: Project; reduced: boolean })
           }}
         >
           <p style={{ color: "rgba(255,255,255,0.85)", fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", margin: 0 }}>
-            {project.medium}
+            {project.category}
           </p>
         </div>
         <div

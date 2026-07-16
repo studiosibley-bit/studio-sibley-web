@@ -14,6 +14,13 @@ export const siteSettings = defineType({
       initialValue: false,
     }),
     defineField({
+      name: 'copyrightYear',
+      title: 'Copyright Year',
+      type: 'number',
+      description: 'Shown in the footer as "© [year] Studio Sibley." Update this once a year.',
+      validation: (r) => r.min(2020).max(2100).integer(),
+    }),
+    defineField({
       name: 'aboutPhoto',
       title: 'About Photo',
       type: 'image',

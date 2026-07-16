@@ -4,6 +4,7 @@ type SanityImageRef = { asset: { _ref: string } }
 
 export type SiteSettings = {
   showTestimonials?: boolean
+  copyrightYear?: number
   aboutPhoto?: SanityImageRef
   heroBg?: SanityImageRef
   projectsBg?: SanityImageRef
@@ -128,6 +129,7 @@ export const testimonialsQuery = groq`
 export const siteSettingsQuery = groq`
   *[_type == "siteSettings"][0] {
     showTestimonials,
+    copyrightYear,
     aboutPhoto,
     heroBg,
     projectsBg,

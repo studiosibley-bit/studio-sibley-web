@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import LogoMark from "./LogoMark";
+import Image from "next/image";
 
-export default function Footer() {
+export default function Footer({ copyrightYear }: { copyrightYear?: number }) {
+  const year = copyrightYear ?? new Date().getFullYear();
+
   return (
     <footer
       className="relative overflow-hidden"
@@ -14,11 +16,14 @@ export default function Footer() {
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-10 flex flex-col items-center gap-6">
         <div>
-          <Link href="/" className="flex items-center gap-2.5">
-            <LogoMark size={26} />
-            <span style={{ fontWeight: 700, fontSize: "0.95rem", letterSpacing: "0.01em" }}>
-              studiosibley
-            </span>
+          <Link href="/" className="flex items-center" aria-label="Studio Sibley home">
+            <Image
+              src="/horizontal_logo.png"
+              alt="Studio Sibley"
+              width={161}
+              height={30}
+              style={{ height: "30px", width: "auto" }}
+            />
           </Link>
         </div>
 
@@ -77,7 +82,7 @@ export default function Footer() {
         </div>
 
         <p style={{ color: "rgba(255,255,255,0.25)", fontSize: "0.72rem" }}>
-          © 2026 Studio Sibley. All rights reserved.
+          © {year} Studio Sibley. All rights reserved.
         </p>
       </div>
     </footer>
