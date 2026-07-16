@@ -186,7 +186,7 @@ export function Spotlight({
     }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
-  }, [index, images.length, onClose]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [index, images.length, onClose]);
 
   const img = images[index];
 

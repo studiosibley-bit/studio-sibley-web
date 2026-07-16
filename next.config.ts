@@ -16,7 +16,10 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    qualities: [75, 90, 95],
+    // Every distinct quality={} value used anywhere in the app must be
+    // listed here, or Next.js silently rounds it to the nearest allowed
+    // value at request time (and logs a warning) instead of honoring it.
+    qualities: [60, 75, 82, 85, 90, 92, 95],
     remotePatterns: [
       {
         protocol: "https",
