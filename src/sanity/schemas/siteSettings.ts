@@ -28,6 +28,52 @@ export const siteSettings = defineType({
       options: { hotspot: true },
     }),
     defineField({
+      name: 'aboutStoryText',
+      title: 'About — Story Paragraph',
+      type: 'text',
+      rows: 3,
+      description: 'The first paragraph on the About page, right below your name.',
+      initialValue:
+        'My passion for creating all started with making short films on an iPad, which quickly grew into filmmaking. In high school, I launched a photography business, offering prom and graduation portraits to classmates.',
+    }),
+    defineField({
+      name: 'aboutTimelineStep1',
+      title: 'About — Timeline Step 1',
+      type: 'text',
+      rows: 3,
+      description:
+        'Wrap any phrase in double curly braces, like {{this}}, to highlight it in gold — used for the icon-timeline paragraphs and the mission statement below.',
+      initialValue:
+        'Around that same time, a conversation with a family friend and graphic designer {{changed the direction}} of my creative journey. I was encouraged to create anything and everything.',
+    }),
+    defineField({
+      name: 'aboutTimelineStep2',
+      title: 'About — Timeline Step 2',
+      type: 'text',
+      rows: 3,
+      description: 'Wrap a phrase in {{double curly braces}} to highlight it in gold.',
+      initialValue:
+        'That mindset led me to {{immerse myself}} in design, photography, and filmmaking. Over time, I developed an eye for what makes creative work effective and an understanding of its business value.',
+    }),
+    defineField({
+      name: 'aboutTimelineStep3',
+      title: 'About — Timeline Step 3',
+      type: 'text',
+      rows: 3,
+      description: 'Wrap a phrase in {{double curly braces}} to highlight it in gold.',
+      initialValue:
+        'I also noticed that many businesses, organizations, and individuals were {{held back}} by visuals and marketing that failed to reflect the quality of what they offered.',
+    }),
+    defineField({
+      name: 'aboutMissionText',
+      title: 'About — Mission Statement',
+      type: 'text',
+      rows: 3,
+      description: 'The highlighted card near the bottom of the About page. Wrap a phrase in {{double curly braces}} to highlight it in gold.',
+      initialValue:
+        'Studio Sibley was built to help entrepreneurs, musicians, nonprofits, churches, creators, and personal brands present themselves with the {{same care}} they put into what they do.',
+    }),
+    defineField({
       name: 'heroBg',
       title: 'Hero Background',
       type: 'image',

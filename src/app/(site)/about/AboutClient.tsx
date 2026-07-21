@@ -4,11 +4,30 @@ import Image from "next/image";
 import ConnectLink from "@/components/ConnectLink";
 
 // ─── Copy ────────────────────────────────────────────────────────────────────
-// The founder story, distributed across the page's sections.
-const storyHeading =
-  "My passion for creating all started with making short films on an iPad, which quickly grew into filmmaking.";
-const storySub =
-  "In high school, I launched a photography business, offering prom and graduation portraits to classmates.";
+// The founder story, editable in Sanity (Site Settings). These are the
+// fallbacks shown until those fields are filled in — matching what's on the
+// existing, already-published Site Settings document today, so nothing goes
+// blank before the CMS content is set.
+const DEFAULT_STORY_TEXT =
+  "My passion for creating all started with making short films on an iPad, which quickly grew into filmmaking. In high school, I launched a photography business, offering prom and graduation portraits to classmates.";
+const DEFAULT_TIMELINE_STEP_1 =
+  "Around that same time, a conversation with a family friend and graphic designer {{changed the direction}} of my creative journey. I was encouraged to create anything and everything.";
+const DEFAULT_TIMELINE_STEP_2 =
+  "That mindset led me to {{immerse myself}} in design, photography, and filmmaking. Over time, I developed an eye for what makes creative work effective and an understanding of its business value.";
+const DEFAULT_TIMELINE_STEP_3 =
+  "I also noticed that many businesses, organizations, and individuals were {{held back}} by visuals and marketing that failed to reflect the quality of what they offered.";
+const DEFAULT_MISSION_TEXT =
+  "Studio Sibley was built to help entrepreneurs, musicians, nonprofits, churches, creators, and personal brands present themselves with the {{same care}} they put into what they do.";
+
+// Sanity's text fields are plain strings, so a phrase wrapped in {{double
+// curly braces}} is how editors mark it to render in gold — no Portable Text
+// setup required for what's otherwise a single sentence with one highlight.
+function renderHighlighted(text: string): React.ReactNode {
+  const parts = text.split(/\{\{(.+?)\}\}/g);
+  return parts.map((part, i) =>
+    i % 2 === 1 ? <span key={i} className="gold-text">{part}</span> : part
+  );
+}
 
 // Shared by the hero row's minHeight and the portrait's own height, so the
 // portrait's bottom (anchored via bottom:0) always lines up with the row's
@@ -127,40 +146,23 @@ function Timeline({ steps }: { steps: Step[] }) {
 
 export default function AboutClient({
   bgUrl,
+  storyText,
+  timelineStep1,
+  timelineStep2,
+  timelineStep3,
+  missionText,
 }: {
   bgUrl?: string;
+  storyText?: string;
+  timelineStep1?: string;
+  timelineStep2?: string;
+  timelineStep3?: string;
+  missionText?: string;
 }) {
   const steps: Step[] = [
-    {
-      icon: <IconPeople />,
-      heading: (
-        <>
-          Around that same time, a conversation with a family friend and graphic designer{" "}
-          <span className="gold-text">changed the direction</span> of my creative journey. I was
-          encouraged to create anything and everything.
-        </>
-      ),
-    },
-    {
-      icon: <IconPencil />,
-      heading: (
-        <>
-          That mindset led me to <span className="gold-text">immerse myself</span> in design,
-          photography, and filmmaking. Over time, I developed an eye for what makes creative work
-          effective and an understanding of its business value.
-        </>
-      ),
-    },
-    {
-      icon: <IconEye />,
-      heading: (
-        <>
-          I also noticed that many businesses, organizations, and individuals were{" "}
-          <span className="gold-text">held back</span> by visuals and marketing that failed to
-          reflect the quality of what they offered.
-        </>
-      ),
-    },
+    { icon: <IconPeople />, heading: renderHighlighted(timelineStep1 ?? DEFAULT_TIMELINE_STEP_1) },
+    { icon: <IconPencil />, heading: renderHighlighted(timelineStep2 ?? DEFAULT_TIMELINE_STEP_2) },
+    { icon: <IconEye />, heading: renderHighlighted(timelineStep3 ?? DEFAULT_TIMELINE_STEP_3) },
   ];
 
   return (
@@ -221,7 +223,7 @@ export default function AboutClient({
           {/* The Story — full-width, left-justified */}
           <div style={{ marginBottom: SECTION_GAP_TIGHT }}>
             <h2 style={{ fontSize: "clamp(1.3rem, 2.4vw, 1.85rem)", fontWeight: 700, letterSpacing: "-0.01em", lineHeight: 1.3, margin: 0, color: "#fff" }}>
-              {storyHeading} {storySub}
+              {renderHighlighted(storyText ?? DEFAULT_STORY_TEXT)}
             </h2>
           </div>
 
@@ -241,9 +243,7 @@ export default function AboutClient({
             }}
           >
             <p style={{ fontSize: "clamp(1.4rem, 3vw, 2.3rem)", fontWeight: 700, color: "#fff", lineHeight: 1.35, letterSpacing: "-0.01em", margin: 0 }}>
-              Studio Sibley was built to help entrepreneurs, musicians, nonprofits, churches,
-              creators, and personal brands present themselves with the{" "}
-              <span className="gold-text">same care</span> they put into what they do.
+              {renderHighlighted(missionText ?? DEFAULT_MISSION_TEXT)}
             </p>
           </div>
 

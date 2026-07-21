@@ -6,6 +6,11 @@ export type SiteSettings = {
   showTestimonials?: boolean
   copyrightYear?: number
   aboutPhoto?: SanityImageRef
+  aboutStoryText?: string
+  aboutTimelineStep1?: string
+  aboutTimelineStep2?: string
+  aboutTimelineStep3?: string
+  aboutMissionText?: string
   heroBg?: SanityImageRef
   projectsBg?: SanityImageRef
   servicesBg?: SanityImageRef
@@ -135,6 +140,11 @@ export const siteSettingsQuery = groq`
     showTestimonials,
     copyrightYear,
     aboutPhoto,
+    aboutStoryText,
+    aboutTimelineStep1,
+    aboutTimelineStep2,
+    aboutTimelineStep3,
+    aboutMissionText,
     heroBg,
     projectsBg,
     servicesBg,
