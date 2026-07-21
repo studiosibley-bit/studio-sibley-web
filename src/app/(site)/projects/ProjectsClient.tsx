@@ -17,7 +17,7 @@ type Project = {
   tileSize?: TileSize;
   role?: string[];
   year?: number;
-  thumbnail?: { asset: { _ref: string }; dimensions?: { width: number; height: number } };
+  thumbnail?: { asset: { _ref: string }; dimensions?: { width: number; height: number }; lqip?: string };
   description?: string;
 };
 
@@ -57,6 +57,7 @@ function FeaturedTile({ project, reduced }: { project: Project; reduced: boolean
             style={{ objectFit: "cover", transition: "transform 0.5s ease" }}
             sizes={size === "full" ? "100vw" : size === "half" ? "50vw" : "33vw"}
             className="group-hover:scale-[1.03]"
+            {...(project.thumbnail?.lqip ? { placeholder: "blur" as const, blurDataURL: project.thumbnail.lqip } : {})}
           />
         )}
         <motion.div
@@ -97,7 +98,15 @@ function OtherTile({ project, reduced }: { project: Project; reduced: boolean })
     >
       <Link href={`/projects/${project.slug}`} onClick={captureScroll} className="group" style={{ display: "block", position: "relative", aspectRatio: "3/2" }}>
         {imgUrl ? (
-          <ImageWithPlaceholder src={imgUrl} alt={project.title} fill quality={85} style={{ objectFit: "cover" }} sizes="(max-width: 768px) 50vw, 25vw" />
+          <ImageWithPlaceholder
+            src={imgUrl}
+            alt={project.title}
+            fill
+            quality={85}
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 768px) 50vw, 25vw"
+            {...(project.thumbnail?.lqip ? { placeholder: "blur" as const, blurDataURL: project.thumbnail.lqip } : {})}
+          />
         ) : (
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <p style={{ color: "rgba(255,255,255,0.15)", fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>

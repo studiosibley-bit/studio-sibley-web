@@ -2,6 +2,17 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import ConnectLink from "./ConnectLink";
+
+const navLinkStyle: React.CSSProperties = {
+  color: "rgba(255,255,255,0.5)",
+  fontSize: "0.85rem",
+  fontWeight: 400,
+  textDecoration: "none",
+  transition: "color 0.2s",
+};
+const onNavLinkEnter = (e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = "#fff");
+const onNavLinkLeave = (e: React.MouseEvent<HTMLAnchorElement>) => (e.currentTarget.style.color = "rgba(255,255,255,0.5)");
 
 export default function Footer({ copyrightYear }: { copyrightYear?: number }) {
   const year = copyrightYear ?? new Date().getFullYear();
@@ -32,24 +43,20 @@ export default function Footer({ copyrightYear }: { copyrightYear?: number }) {
             { href: "/projects", label: "Projects" },
             { href: "/services", label: "Services" },
             { href: "/about", label: "About" },
-            { href: "/connect", label: "Connect" },
           ].map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              style={{
-                color: "rgba(255,255,255,0.5)",
-                fontSize: "0.85rem",
-                fontWeight: 400,
-                textDecoration: "none",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "#fff")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(255,255,255,0.5)")}
+              style={navLinkStyle}
+              onMouseEnter={onNavLinkEnter}
+              onMouseLeave={onNavLinkLeave}
             >
               {label}
             </Link>
           ))}
+          <ConnectLink style={navLinkStyle} onMouseEnter={onNavLinkEnter} onMouseLeave={onNavLinkLeave}>
+            Connect
+          </ConnectLink>
         </nav>
 
         <div className="flex items-center gap-4">

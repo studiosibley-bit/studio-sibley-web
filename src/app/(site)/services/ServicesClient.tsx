@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Link from "next/link";
+import ConnectLink from "@/components/ConnectLink";
 import {
   motion,
   useScroll,
@@ -449,13 +449,12 @@ function CtaPanel({ progress, reduced }: { progress: MotionValue<number>; reduce
         Whether you need a single service or a complete creative package, every project is
         approached with the same attention to detail and commitment to quality.
       </p>
-      <Link
-        href="/connect"
+      <ConnectLink
         className="btn-gold"
         style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
       >
         Let&apos;s Create
-      </Link>
+      </ConnectLink>
     </motion.div>
   );
 }
@@ -739,13 +738,12 @@ export default function ServicesClient({ bgUrl }: { bgUrl?: string }) {
           Whether you need a single service or a complete creative package, every project is
           approached with the same attention to detail and commitment to quality.
         </p>
-        <Link
-          href="/connect"
+        <ConnectLink
           className="btn-gold"
           style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
         >
           Let&apos;s Create
-        </Link>
+        </ConnectLink>
       </motion.div>
     </section>
   );

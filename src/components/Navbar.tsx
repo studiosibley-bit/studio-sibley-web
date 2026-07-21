@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ease } from "@/lib/motion";
+import ConnectLink from "./ConnectLink";
 
 const navLinks = [
   { href: "/projects", label: "Projects" },
@@ -67,13 +68,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <div className="hidden md:flex items-center">
-          <Link
-            href="/connect"
-            className="btn-outline-coral"
-            style={{  fontSize: "0.88rem" }}
-          >
-            Let&apos;s Create
-          </Link>
+          <ConnectLink className="btn-outline-coral" style={{ fontSize: "0.88rem" }}>Let&apos;s Create</ConnectLink>
         </div>
 
         {/* Mobile hamburger */}
@@ -135,13 +130,7 @@ export default function Navbar() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.2, delay: navLinks.length * 0.06, ease }}
             >
-              <Link
-                href="/connect"
-                className="btn-outline-coral w-fit"
-                style={{  fontSize: "0.88rem" }}
-              >
-                Let&apos;s Create
-              </Link>
+              <ConnectLink className="btn-outline-coral w-fit" style={{ fontSize: "0.88rem" }}>Let&apos;s Create</ConnectLink>
             </motion.div>
           </motion.div>
         )}

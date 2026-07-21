@@ -14,6 +14,10 @@ import { useEffect, useRef, useState } from "react";
 // also show it through. Once `loaded` flips true the label is unmounted, so
 // none of that matters.
 //
+// When the caller passes placeholder="blur" (a real blurred preview, e.g.
+// Sanity's LQIP), that blur already communicates the loading state on its
+// own — the text label is skipped so the two don't stack.
+//
 // The nearest ancestor must be position:relative (every call site provides one,
 // same requirement next/image's own `fill` mode has).
 export default function ImageWithPlaceholder(props: ImageProps) {
@@ -28,7 +32,7 @@ export default function ImageWithPlaceholder(props: ImageProps) {
 
   return (
     <>
-      {!loaded && (
+      {!loaded && props.placeholder !== "blur" && (
         <span
           aria-hidden
           style={{

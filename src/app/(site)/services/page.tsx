@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import { client } from "@/sanity/client";
 import { siteSettingsQuery, type SiteSettings } from "@/sanity/queries";
 import { urlFor } from "@/sanity/image";
 import ServicesClient from "./ServicesClient";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Design, photography, and video services for businesses, creators, and personal brands — brand identity, product and event photography, and video production.",
+};
 
 export default async function ServicesPage() {
   let bgUrl: string | undefined;

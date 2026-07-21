@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion, type PanInfo } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import ConnectLink from "@/components/ConnectLink";
 
 type Testimonial = {
   _id: string;
@@ -17,6 +18,7 @@ export type HeroProject = {
   slug: string;
   title: string;
   imgUrl: string;
+  blurDataURL?: string;
 };
 
 // ─── Auto-rotating, swipeable featured-work strip ───────────────────────────
@@ -160,6 +162,7 @@ function FeaturedStrip({ projects, reduced }: { projects: HeroProject[]; reduced
                 draggable={false}
                 sizes="(max-width: 768px) 100vw, 30vw"
                 style={{ objectFit: "cover", pointerEvents: "none" }}
+                {...(p.blurDataURL ? { placeholder: "blur" as const, blurDataURL: p.blurDataURL } : {})}
               />
               <div
                 className="hero-strip-caption absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end"
@@ -242,9 +245,9 @@ export default function HeroClient({
           <Link href="/projects" className="btn-gold" style={{ fontSize: "0.9rem", fontWeight: 700 }}>
             View Work
           </Link>
-          <Link href="/connect" className="btn-outline-light" style={{ fontSize: "0.9rem" }}>
+          <ConnectLink className="btn-outline-light" style={{ fontSize: "0.9rem" }}>
             Contact
-          </Link>
+          </ConnectLink>
         </div>
 
         {heroProjects.length > 0 && <FeaturedStrip projects={heroProjects} reduced={!!reduced} />}

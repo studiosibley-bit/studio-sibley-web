@@ -1,4 +1,5 @@
-import { Suspense } from "react";
+import { Suspense, cache } from "react";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { client } from "@/sanity/client";
 import { projectBySlugQuery } from "@/sanity/queries";
@@ -69,19 +70,41 @@ type RawProject = {
   bookletSpreads?: SanityImage[];
 };
 
+// Cached per-request so generateMetadata and the page component below share
+// a single Sanity fetch instead of hitting the API twice for the same slug.
+const getProject = cache(async (slug: string): Promise<RawProject | null> => {
+  try {
+    return await client.fetch<RawProject>(projectBySlugQuery, { slug });
+  } catch {
+    return null;
+  }
+});
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const raw = await getProject(slug);
+  if (!raw) return {};
+
+  return {
+    title: raw.title,
+    description:
+      raw.description ||
+      raw.brief ||
+      `${raw.title} — a ${raw.medium?.toLowerCase() ?? ""} project by Studio Sibley.`,
+  };
+}
+
 export default async function ProjectDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-
-  let raw: RawProject | null = null;
-  try {
-    raw = await client.fetch<RawProject>(projectBySlugQuery, { slug });
-  } catch {
-    notFound();
-  }
+  const raw = await getProject(slug);
 
   if (!raw) notFound();
 

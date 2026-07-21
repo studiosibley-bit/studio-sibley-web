@@ -31,7 +31,7 @@ export type ListProject = {
   tileSize?: 'full' | 'half' | 'third'
   role?: string[]
   year?: number
-  thumbnail?: SanityImageRef & { dimensions?: { width: number; height: number } }
+  thumbnail?: SanityImageRef & { dimensions?: { width: number; height: number }; lqip?: string }
   description?: string
 }
 
@@ -45,7 +45,7 @@ export type FeaturedProject = {
   title: string
   slug: string
   medium?: string
-  thumbnail?: SanityImageRef
+  thumbnail?: SanityImageRef & { lqip?: string }
 }
 
 // Featured projects (with a thumbnail) for the home hero strip.
@@ -56,7 +56,10 @@ export const featuredProjectsQuery = groq`
       title,
       "slug": slug.current,
       medium,
-      thumbnail,
+      thumbnail {
+        ...,
+        "lqip": asset->metadata.lqip,
+      },
     }
 `
 
@@ -74,6 +77,7 @@ export const projectsQuery = groq`
     thumbnail {
       ...,
       "dimensions": asset->metadata.dimensions,
+      "lqip": asset->metadata.lqip,
     },
     description,
     videoUrl,

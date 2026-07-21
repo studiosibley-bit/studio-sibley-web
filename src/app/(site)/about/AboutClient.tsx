@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
+import ConnectLink from "@/components/ConnectLink";
 
 // ─── Copy ────────────────────────────────────────────────────────────────────
 // The founder story, distributed across the page's sections.
@@ -249,13 +249,12 @@ export default function AboutClient({
 
           {/* Closing CTA — centered */}
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Link
-              href="/connect"
+            <ConnectLink
               className="btn-gold"
               style={{ fontSize: "0.9rem", fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase" }}
             >
               Let&apos;s Create
-            </Link>
+            </ConnectLink>
           </div>
 
         </div>

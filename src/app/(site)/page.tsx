@@ -54,6 +54,7 @@ export default async function Home() {
         slug: p.slug,
         title: p.title,
         imgUrl: urlFor(p.thumbnail!).width(1000).height(750).fit("crop").url(),
+        blurDataURL: p.thumbnail!.lqip,
       }));
   } catch {
     // Falls back to defaults when Sanity isn't configured yet
